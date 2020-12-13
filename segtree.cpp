@@ -48,6 +48,24 @@ int query(int ss, int se, int qs, int qe, int st)
 	return min(query(ss, mid, qs, qe, st * 2), query(mid + 1, se, qs, qe, st * 2 + 1));
 }
 
+void update(int ss, int se, int key, int si)
+{
+	if (ss == se)
+	{
+		segt[si] = a[ss];
+		return;
+	}
+
+	int mid = ss + (se - ss) / 2;
+	
+	if (key > mid)
+		update(mid + 1, se, key, si * 2 + 1);
+	else
+		update(ss, mid, key, si * 2);
+
+	segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
+}
+
 int main()
 {
 	faster;
