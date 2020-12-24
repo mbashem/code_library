@@ -13,6 +13,12 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
+/*
+	@two version available here
+	1.Class
+	2.Function
+*/
+
 class DSU
 {
 	vector<int> p, sz;
@@ -58,6 +64,47 @@ public:
 		return true;
 	}
 };
+
+// Function Version Faster
+// Default size
+
+const int N = 2e5;
+int p[N], sz[N];
+
+// Init till n
+void init(int n)
+{
+	// n = size
+	for (int i = 0; i < n; i++)
+	{
+		p[i] = i, sz[i] = 1;
+	}
+}
+
+//Return parent Recursively
+int Get(int x)
+{
+	if (p[x] != x)
+		p[x] = Get(p[x]);
+
+	return p[x];
+}
+
+// Return if Union created Succesffully or false if they are already in Union
+bool Union(int x, int y)
+{
+	x = Get(x), y = Get(y);
+	if (x == y)
+		return false;
+
+	if (sz[x] > sz[y])
+		swap(x, y);
+
+	p[x] = y;
+	sz[y] += sz[x];
+
+	return true;
+}
 
 int main()
 {
