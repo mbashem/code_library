@@ -23,7 +23,7 @@ typedef pair<ll, ll> pll;
 class SegTree
 {
 private:
-	vector<int> segt, a;
+	vector<int> segt, &a;
 
 	void build(int ss, int se, int st)
 	{
@@ -73,10 +73,14 @@ private:
 	}
 
 public:
-	SegTree() {}
-	SegTree(vector<int> &a)
+	// SegTree() : a(vector<int>{4,5})
+	// {
+	// 	// vector<int> k;
+	// 	// a = k;
+	// }
+
+	SegTree(vector<int> &a) : a(a)
 	{
-		this->a = a;
 		int n = a.size();
 		segt.resize(n * 4 + 5);
 
@@ -169,7 +173,7 @@ int main()
 
 	cout << minTree.Get(0, a.size() - 1) << endl;
 
-	minTree.Set(2,3);
-	cout << minTree.Get(0,a.size()-1) << endl;
+	minTree.Set(2, 3);
+	cout << minTree.Get(0, a.size() - 1) << " " << a[2] << endl;
 	return 0;
 }
