@@ -25,33 +25,33 @@ class SegTree
 private:
 	vector<int> segt, &a;
 
-	void build(int ss, int se, int st)
+	void build(int ss, int se, int si)
 	{
 		if (ss == se)
 		{
-			segt[st] = a[ss];
+			segt[si] = a[ss];
 			return;
 		}
 
 		int mid = ss + (se - ss) / 2;
-		build(ss, mid, st * 2);
-		build(mid + 1, se, st * 2 + 1);
+		build(ss, mid, si * 2);
+		build(mid + 1, se, si * 2 + 1);
 
-		segt[st] = min(segt[st * 2], segt[st * 2 + 1]);
+		segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
 	}
 
-	int query(int ss, int se, int qs, int qe, int st)
+	int query(int ss, int se, int qs, int qe, int si)
 	{
-		//	cout << ss << " " << se << " " << qs << " " << qe << " " << st << endl;
+		//	cout << ss << " " << se << " " << qs << " " << qe << " " << si << endl;
 		if (se < qs || qe < ss)
 			return INT_MAX;
 
 		if (qs <= ss && qe >= se)
-			return segt[st];
+			return segt[si];
 
 		int mid = ss + (se - ss) / 2;
 
-		return min(query(ss, mid, qs, qe, st * 2), query(mid + 1, se, qs, qe, st * 2 + 1));
+		return min(query(ss, mid, qs, qe, si * 2), query(mid + 1, se, qs, qe, si * 2 + 1));
 	}
 
 	void update(int ss, int se, int key, int si)
@@ -109,33 +109,33 @@ int a[N + 5];
 
 int segt[N * 4 + 5];
 
-void build(int ss, int se, int st)
+void build(int ss, int se, int si)
 {
 	if (ss == se)
 	{
-		segt[st] = a[ss];
+		segt[si] = a[ss];
 		return;
 	}
 
 	int mid = ss + (se - ss) / 2;
-	build(ss, mid, st * 2);
-	build(mid + 1, se, st * 2 + 1);
+	build(ss, mid, si * 2);
+	build(mid + 1, se, si * 2 + 1);
 
-	segt[st] = min(segt[st * 2], segt[st * 2 + 1]);
+	segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
 }
 
-int query(int ss, int se, int qs, int qe, int st)
+int query(int ss, int se, int qs, int qe, int si)
 {
-	//	cout << ss << " " << se << " " << qs << " " << qe << " " << st << endl;
+	//	cout << ss << " " << se << " " << qs << " " << qe << " " << si << endl;
 	if (se < qs || qe < ss)
 		return INT_MAX;
 
 	if (qs <= ss && qe >= se)
-		return segt[st];
+		return segt[si];
 
 	int mid = ss + (se - ss) / 2;
 
-	return min(query(ss, mid, qs, qe, st * 2), query(mid + 1, se, qs, qe, st * 2 + 1));
+	return min(query(ss, mid, qs, qe, si * 2), query(mid + 1, se, qs, qe, si * 2 + 1));
 }
 
 void update(int ss, int se, int key, int si)
