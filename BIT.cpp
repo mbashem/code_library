@@ -14,6 +14,8 @@ typedef pair<ll, ll> pll;
 #define endl "\n"
 
 // Insert 0 at the begining of input array to make it 1 based indexing
+// (ind & -ind) returns least significant bit position k, 2^(k-1) (1 based indexing)
+// for 101 will return 1; for 1010 will return 2;
 class BIT
 {
 private:
@@ -63,12 +65,6 @@ public:
 		{
 			m_array[ind] += add;
 		}
-	}
-
-	void empty(int ind)
-	{
-		ll val = range_query(ind, ind);
-		add(ind, -1 * val);
 	}
 };
 
