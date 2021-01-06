@@ -38,6 +38,11 @@ class Hash
 
 public:
 	Hash() {}
+	// Update it make it more dynamic like segTree class and DSU
+	// Hash(int sz) // Max size
+	// {
+	// }
+
 	Hash(string s, ll base, ll mod)
 	{
 		this->base = base;
