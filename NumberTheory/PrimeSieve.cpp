@@ -48,22 +48,19 @@ public:
 		return isprime;
 	}
 
-	vector<pll> &factorize(ll n)
+	void factorize(ll num, vector<pll> &a)
 	{
-		vector<pll> a;
-		for (ll i = 0; i < prime.size() && prime[i] * prime[i] <= n; i++)
-			if (n % prime[i] == 0)
+		for (ll i = 0; i < prime.size() && prime[i] * prime[i] <= num; i++)
+			if (num % prime[i] == 0)
 			{
 				ll cnt = 0;
-				while (n % prime[i] == 0)
-					cnt++, n /= prime[i];
+				while (num % prime[i] == 0)
+					cnt++, num /= prime[i];
 				a.push_back({prime[i], cnt});
 			}
 
-		if (n != 1)
-			a.push_back({n, 1});
-
-		return a;
+		if (num != 1)
+			a.push_back({num, 1});
 	}
 };
 
