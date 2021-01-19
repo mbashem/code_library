@@ -29,6 +29,14 @@ ll extended_euclid(ll &x, ll &y, ll a, ll b)
 	y = nx - (ny * (a / b));
 	return res;
 }
+
+// ModInv
+ll modInv(ll a,ll mod){
+	ll x,y;
+	ll g = extended_euclid(x,y,a,mod);
+
+	return (a % mod + mod) % mod;
+}
 // Iterative
 
 
