@@ -62,6 +62,39 @@ public:
 		if (num != 1)
 			a.push_back({num, 1});
 	}
+
+	void segementedSieve(vector<ll> &segPrimes, ll l, ll r)
+	{
+		vector<bool> currentPrimes(r - l + 1, true);
+		//cout << "HERE" << endl;
+		for (ll p : prime)
+		{
+			ll to = (l / p) * p;
+			if (to < l)
+				to += p;
+			// cout << p << " " << to << endl;
+			if (to == p)
+				to += p;
+			for (ll i = to; i <= r; i += p)
+			{
+				currentPrimes[i - l] = false;
+			}
+		}
+
+		// cout << "PRIME" << endl;
+
+		for (int i = l; i <= r; i++)
+		{
+			if (i < 2)
+				continue;
+			//cout << i << " " << i - l << " " << currentPrimes[i - l] << endl;
+			if (currentPrimes[i - l])
+			{
+
+				segPrimes.push_back(i);
+			}
+		}
+	}
 };
 
 int main()
