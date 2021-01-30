@@ -49,6 +49,11 @@ public:
 			}
 	}
 
+	ll getDivisorsCount(int number, int divisor)
+	{
+		return phi[number / divisor];
+	}
+
 	void factorize(ll num, vector<pll> &a)
 	{
 		for (int i = 0; i < prime.size() && prime[i] * prime[i] <= num; i++)
