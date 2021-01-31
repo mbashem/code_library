@@ -75,6 +75,37 @@ public:
 	{
 		return phi[n];
 	}
+	// (n/p) * (p-1) => n- (n/p);
+	void segmentedPhiSieve(ll l, ll r)
+	{
+		vector<ll> currentPhi(r - l + 1);
+		vector<ll> leftOverPrime(r - l + 1);
+
+		for (ll i = l; i <= r; i++)
+			currentPhi[i - l] = i, leftOverPrime[i - l] = i;
+
+		for (ll p : prime)
+		{
+			ll to = ((l + p - 1) / p) * p;
+
+			if (to == p)
+				to += p;
+
+			for (ll i = to; i <= r; i += p)
+			{
+				while (leftOverPrime[i - l] % p == 0)
+					leftOverPrime[i - l] /= p;
+				currentPhi[i - l] -= currentPhi[i - l] / p;
+			}
+		}
+
+		for (ll i = l; i <= r; i++)
+		{
+			if (leftOverPrime[i - l] > 1)
+				currentPhi[i - l] -= currentPhi[i - l] / leftOverPrime[i - l];
+			cout << currentPhi[i - l] << endl;
+		}
+	}
 
 	ll PhiSqrt(ll n)
 	{
