@@ -29,11 +29,16 @@ public:
 	void sieve()
 	{
 		isprime[0] = isprime[1] = false;
-		for (ll i = 1; i <= n; i++)
+
+		prime.push_back(2);
+		for (ll i = 4; i <= n; i += 2)
+			isprime[i] = false;
+
+		for (ll i = 3; i * i <= n; i += 2)
 			if (isprime[i])
 			{
 				prime.push_back(i);
-				for (ll j = i * i; j <= n; j += i)
+				for (ll j = i * i; j <= n; j += 2 * i)
 					isprime[j] = false;
 			}
 	}
