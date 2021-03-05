@@ -34,7 +34,7 @@ public:
 		for (ll i = 4; i <= n; i += 2)
 			isprime[i] = false;
 
-		for (ll i = 3; i * i <= n; i += 2)
+		for (ll i = 3; i <= n; i += 2)
 			if (isprime[i])
 			{
 				prime.push_back(i);
