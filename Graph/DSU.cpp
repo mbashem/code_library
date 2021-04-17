@@ -30,7 +30,7 @@ public:
 		p.resize(dsz + 1, 0), sz.resize(dsz + 1, 0);
 	}
 
-	void Init(int n)
+	void init(int n)
 	{
 		// n = size
 		for (int i = 0; i < n; i++)
@@ -40,18 +40,18 @@ public:
 	}
 
 	//Return parent Recursively
-	int Get(int x)
+	int get(int x)
 	{
 		if (p[x] != x)
-			p[x] = Get(p[x]);
+			p[x] = get(p[x]);
 
 		return p[x];
 	}
 
 	// Return if Union created Succesffully or false if they are already in Union
-	bool Union(int x, int y)
+	bool merge(int x, int y)
 	{
-		x = Get(x), y = Get(y);
+		x = get(x), y = get(y);
 		if (x == y)
 			return false;
 
@@ -112,7 +112,7 @@ int main()
 	int sz = 20; // Size of array
 	DSU dsu = DSU(sz);
 	// Union
-	bool res = dsu.Union(sz - 1, sz - 2); // Demo
+	bool res = dsu.merge(sz - 1, sz - 2); // Demo
 
 	return 0;
 }

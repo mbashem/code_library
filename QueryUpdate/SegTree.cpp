@@ -43,7 +43,6 @@ private:
 
 	int query(int ss, int se, int qs, int qe, int si)
 	{
-		//	cout << ss << " " << se << " " << qs << " " << qe << " " << si << endl;
 		if (se < qs || qe < ss)
 			return INT_MAX;
 
@@ -80,7 +79,7 @@ public:
 		segt.resize(sz * 4 + 5);
 	}
 
-	void Init(vector<int> &arr)
+	void init(vector<int> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
@@ -89,12 +88,12 @@ public:
 		build(0, n - 1, 1);
 	}
 
-	int Get(int qs, int qe)
+	int get(int qs, int qe)
 	{
 		return query(0, n - 1, qs, qe, 1);
 	}
 
-	int Set(int key, int val)
+	int set(int key, int val)
 	{
 		a[key] = val;
 		update(0, n - 1, key, 1);
@@ -172,11 +171,11 @@ int main()
 	vector<int> a = {4, 5, 6};
 
 	SegTree minTree = SegTree(1e5);
-	minTree.Init(a);
+	minTree.init(a);
 
-	cout << minTree.Get(0, a.size() - 1) << endl;
+	cout << minTree.get(0, a.size() - 1) << endl;
 
-	minTree.Set(2, 3);
-	cout << minTree.Get(0, a.size() - 1) << " " << a[2] << endl;
+	minTree.set(2, 3);
+	cout << minTree.get(0, a.size() - 1) << " " << a[2] << endl;
 	return 0;
 }

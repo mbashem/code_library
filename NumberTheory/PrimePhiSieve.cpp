@@ -71,7 +71,7 @@ public:
 			a.push_back({num, 1});
 	}
 
-	ll Phi(int n)
+	ll getPhi(int n)
 	{
 		return phi[n];
 	}
@@ -107,7 +107,7 @@ public:
 		}
 	}
 
-	ll PhiSqrt(ll n)
+	ll phiSqrt(ll n)
 	{
 		ll res = n;
 
