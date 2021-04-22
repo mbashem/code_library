@@ -46,10 +46,10 @@ public:
 
 	void factorize(ll num, vector<pll> &a)
 	{
-		for (ll i = 0; i < prime.size() && prime[i] * prime[i] <= num; i++)
+		for (int i = 0; i < prime.size() && prime[i] * 1LL * prime[i] <= num; i++)
 			if (num % prime[i] == 0)
 			{
-				ll cnt = 0;
+				int cnt = 0;
 				while (num % prime[i] == 0)
 					cnt++, num /= prime[i];
 				a.push_back({prime[i], cnt});
