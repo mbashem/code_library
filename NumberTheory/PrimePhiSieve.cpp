@@ -17,7 +17,7 @@ class PrimePhiSieve
 {
 private:
 	ll n;
-	vector<ll> prime, phi;
+	vector<ll> primes, phi;
 	vector<bool> isPrime;
 
 public:
@@ -26,11 +26,6 @@ public:
 		this->n = n, isPrime.resize(n + 5, true), phi.resize(n + 5, 1);
 		phiSieve();
 	}
-
-	vector<ll> &getPrimeList() { return prime; }
-
-	vector<ll> &getPhiList() { return phi; }
-
 	void phiSieve()
 	{
 		isPrime[0] = isPrime[1] = false;
@@ -41,7 +36,7 @@ public:
 		for (ll i = 1; i <= n; i++)
 			if (isPrime[i])
 			{
-				prime.push_back(i);
+				primes.push_back(i);
 				phi[i] *= (i - 1), phi[i] /= i;
 
 				for (ll j = i + i; j <= n; j += i)
@@ -56,14 +51,14 @@ public:
 
 	void factorize(ll num, vector<pll> &a)
 	{
-		for (int i = 0; i < prime.size() && prime[i] * prime[i] <= num; i++)
+		for (int i = 0; i < primes.size() && primes[i] * primes[i] <= num; i++)
 		{
-			if (num % prime[i] == 0)
+			if (num % primes[i] == 0)
 			{
 				int cnt = 0;
-				while (num % prime[i] == 0)
-					cnt++, num /= prime[i];
-				a.push_back({prime[i], cnt});
+				while (num % primes[i] == 0)
+					cnt++, num /= primes[i];
+				a.push_back({primes[i], cnt});
 			}
 		}
 
@@ -84,7 +79,7 @@ public:
 		for (ll i = l; i <= r; i++)
 			currentPhi[i - l] = i, leftOverPrime[i - l] = i;
 
-		for (ll p : prime)
+		for (ll p : primes)
 		{
 			ll to = ((l + p - 1) / p) * p;
 

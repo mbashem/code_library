@@ -16,13 +16,13 @@ typedef pair<ll, ll> pll;
 class PrimeSieve
 {
 public:
-	vector<int> prime;
+	vector<int> primes;
 	vector<bool> isprime;
 	int n;
 
 	PrimeSieve(int n)
 	{
-		this->n = n, isprime.resize(n + 5, true), prime.clear();
+		this->n = n, isprime.resize(n + 5, true), primes.clear();
 		sieve();
 	}
 
@@ -30,7 +30,7 @@ public:
 	{
 		isprime[0] = isprime[1] = false;
 
-		prime.push_back(2);
+		primes.push_back(2);
 		for (int i = 4; i <= n; i += 2)
 			isprime[i] = false;
 
@@ -41,18 +41,18 @@ public:
 
 		for (int i = 3; i <= n; i += 2)
 			if (isprime[i])
-				prime.push_back(i);
+				primes.push_back(i);
 	}
 
 	void factorize(ll num, vector<pll> &a)
 	{
-		for (int i = 0; i < prime.size() && prime[i] * 1LL * prime[i] <= num; i++)
-			if (num % prime[i] == 0)
+		for (int i = 0; i < primes.size() && primes[i] * 1LL * primes[i] <= num; i++)
+			if (num % primes[i] == 0)
 			{
 				int cnt = 0;
-				while (num % prime[i] == 0)
-					cnt++, num /= prime[i];
-				a.push_back({prime[i], cnt});
+				while (num % primes[i] == 0)
+					cnt++, num /= primes[i];
+				a.push_back({primes[i], cnt});
 			}
 
 		if (num != 1)
@@ -62,7 +62,7 @@ public:
 	void segementedSieve(vector<ll> &segPrimes, ll l, ll r)
 	{
 		vector<bool> currentPrimes(r - l + 1, true);
-		for (ll p : prime)
+		for (ll p : primes)
 		{
 			ll to = (l / p) * p;
 			if (to < l)

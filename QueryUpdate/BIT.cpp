@@ -19,27 +19,27 @@ typedef pair<ll, ll> pll;
 class BIT
 {
 private:
-	vector<ll> m_array;
+	vector<ll> mArray;
 
 public:
 	BIT(int sz) // Max size of the array
 	{
-		m_array.resize(sz + 1, 0);
+		mArray.resize(sz + 1, 0);
 	}
 
 	void build(vector<ll> &list)
 	{
 		for (int i = 1; i <= list.size(); i++)
 		{
-			m_array[i] = list[i];
+			mArray[i] = list[i];
 		}
 
-		for (int ind = 1; ind <= m_array.size(); ind++)
+		for (int ind = 1; ind <= mArray.size(); ind++)
 		{
 			int ind2 = ind + (ind & -ind);
-			if (ind2 <= m_array.size())
+			if (ind2 <= mArray.size())
 			{
-				m_array[ind2] += m_array[ind];
+				mArray[ind2] += mArray[ind];
 			}
 		}
 	}
@@ -49,7 +49,7 @@ public:
 		int res = 0;
 		for (; ind > 0; ind -= (ind & -ind))
 		{
-			res += m_array[ind];
+			res += mArray[ind];
 		}
 		return res;
 	}
@@ -61,9 +61,9 @@ public:
 
 	void add(int ind, ll add)
 	{
-		for (; ind < m_array.size(); ind += (ind & -ind))
+		for (; ind < mArray.size(); ind += (ind & -ind))
 		{
-			m_array[ind] += add;
+			mArray[ind] += add;
 		}
 	}
 };
