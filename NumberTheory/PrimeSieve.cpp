@@ -34,7 +34,7 @@ public:
 		for (int i = 4; i <= n; i += 2)
 			isprime[i] = false;
 
-		for (int i = 3; i * i <= n; i += 2)
+		for (int i = 3; 1LL * i * i <= n; i += 2)
 			if (isprime[i])
 				for (int j = i * i; j <= n; j += 2 * i)
 					isprime[j] = false;
