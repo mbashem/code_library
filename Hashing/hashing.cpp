@@ -45,7 +45,7 @@ public:
 		this->mod = mod;
 		basePow.resize(mxSize + 2, 1), fHash.resize(mxSize + 2, 0), rHash.resize(mxSize + 2, 0);
 
-		for (int i = 1; i <= mxSize(); i++)
+		for (int i = 1; i <= mxSize; i++)
 		{
 			basePow[i] = basePow[i - 1] * base % mod;
 		}
