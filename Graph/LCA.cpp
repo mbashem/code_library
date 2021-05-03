@@ -14,6 +14,9 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
+
+// For more:https://cp-algorithms.com/graph/lca.html
+
 // Draft version
 const int MAX_N = 1e5 + 5, LOG = 20;
 
