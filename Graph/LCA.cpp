@@ -18,12 +18,13 @@ typedef pair<ll, ll> pll;
 const int MAX_N = 1e5 + 5, LOG = 20;
 
 int up[MAX_N][LOG];
-int depth[MAX_N];
+int depth[MAX_N], euler[MAX_N * 2], timer = 0;
 
 vector<int> g[MAX_N];
 
 void dfs(int curr, int p)
 {
+	euler[++timer] = curr;
 	for (int next : g[curr])
 	{
 		if (next == p)
@@ -33,6 +34,7 @@ void dfs(int curr, int p)
 		for (int j = 1; j < LOG; j++)
 			up[next][j] = up[up[next][j - 1]][j - 1];
 		dfs(next, curr);
+		euler[++timer] = curr;
 	}
 }
 
