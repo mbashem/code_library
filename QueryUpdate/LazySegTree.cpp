@@ -19,6 +19,10 @@ private:
 	vector<int> segT, lazy, a;
 	int n;
 
+	int left(int si) { return si * 2; }
+	int right(int si) { return si * 2 + 1; }
+	int getMid(int ss, int se) { return (ss + (se - ss) / 2); }
+
 	void build(int ss, int se, int si)
 	{
 		lazy[si] = 0;
@@ -28,11 +32,11 @@ private:
 			return;
 		}
 
-		int mid = ss + (se - ss) / 2;
-		build(ss, mid, si * 2);
-		build(mid + 1, se, si * 2 + 1);
+		int mid = getMid(ss, se);
+		build(ss, mid, left(si));
+		build(mid + 1, se, right(si));
 
-		segT[si] = segT[si * 2] + segT[si * 2 + 1];
+		segT[si] = segT[left(si)] + segT[right(si)];
 	}
 
 	int query(int ss, int se, int si, int qs, int qe)
@@ -46,8 +50,8 @@ private:
 
 			if (ss != se)
 			{
-				lazy[2 * si] += curr;
-				lazy[2 * si + 1] += curr;
+				lazy[left(si)] += curr;
+				lazy[right(si)] += curr;
 			}
 		}
 
@@ -57,9 +61,9 @@ private:
 		if (qs <= ss && qe >= se)
 			return segT[si];
 
-		int mid = ss + (se - ss) / 2;
+		int mid = getMid(ss, se);
 
-		return query(ss, mid, si * 2, qs, qe) + query(mid + 1, se, si * 2 + 1, qs, qe);
+		return query(ss, mid, left(si), qs, qe) + query(mid + 1, se, right(si), qs, qe);
 	}
 
 	void update(int ss, int se, int si, int qs, int qe, int val)
@@ -72,8 +76,8 @@ private:
 
 			if (ss != se)
 			{
-				lazy[2 * si] += curr;
-				lazy[2 * si + 1] += curr;
+				lazy[left(si)] += curr;
+				lazy[right(si)] += curr;
 			}
 		}
 
@@ -86,18 +90,18 @@ private:
 
 			if (ss != se)
 			{
-				lazy[2 * si] += val;
-				lazy[2 * si + 1] += val;
+				lazy[left(si)] += val;
+				lazy[right(si)] += val;
 			}
 			return;
 		}
 
-		int mid = ss + (se - ss) / 2;
+		int mid = getMid(ss, se);
 
 		update(mid + 1, se, si * 2 + 1, qs, qe, val);
-		update(ss, mid, si * 2, qs, qe, val);
+		update(ss, mid, left(si), qs, qe, val);
 
-		segT[si] = segT[si * 2] + segT[si * 2 + 1];
+		segT[si] = segT[left(si)] + segT[right(si)];
 	}
 
 public:

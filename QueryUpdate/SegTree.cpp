@@ -26,6 +26,10 @@ private:
 	vector<int> segt, a;
 	int n;
 
+	int left(int si) { return si * 2; }
+	int right(int si) { return si * 2 + 1; }
+	int getMid(int ss, int se) { return (ss + (se - ss) / 2); }
+
 	void build(int ss, int se, int si)
 	{
 		if (ss == se)
@@ -34,11 +38,11 @@ private:
 			return;
 		}
 
-		int mid = ss + (se - ss) / 2;
-		build(ss, mid, si * 2);
-		build(mid + 1, se, si * 2 + 1);
+		int mid = getMid(ss, se);
+		build(ss, mid, left(si));
+		build(mid + 1, se, right(si));
 
-		segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
+		segt[si] = min(segt[left(si)], segt[right(si)]);
 	}
 
 	int query(int ss, int se, int qs, int qe, int si)
@@ -49,9 +53,9 @@ private:
 		if (qs <= ss && qe >= se)
 			return segt[si];
 
-		int mid = ss + (se - ss) / 2;
+		int mid = getMid(ss, se);
 
-		return min(query(ss, mid, qs, qe, si * 2), query(mid + 1, se, qs, qe, si * 2 + 1));
+		return min(query(ss, mid, qs, qe, left(si)), query(mid + 1, se, qs, qe, right(si)));
 	}
 
 	void update(int ss, int se, int key, int si)
@@ -62,14 +66,14 @@ private:
 			return;
 		}
 
-		int mid = ss + (se - ss) / 2;
+		int mid = getMid(ss, se);
 
 		if (key > mid)
-			update(mid + 1, se, key, si * 2 + 1);
+			update(mid + 1, se, key, right(si));
 		else
-			update(ss, mid, key, si * 2);
+			update(ss, mid, key, left(si));
 
-		segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
+		segt[si] = min(segt[left(si)], segt[right(si)]);
 	}
 
 public:
