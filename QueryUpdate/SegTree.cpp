@@ -97,7 +97,7 @@ public:
 		return query(0, n - 1, qs, qe, 1);
 	}
 
-	int set(int key, int val)
+	void set(int key, int val)
 	{
 		a[key] = val;
 		update(0, n - 1, key, 1);

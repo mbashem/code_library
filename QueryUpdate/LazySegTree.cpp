@@ -126,7 +126,7 @@ public:
 		return query(0, n - 1, 1, qs, qe);
 	}
 
-	int Update(int from, int to, int val)
+	void Update(int from, int to, int val)
 	{
 		update(0, n - 1, 1, from, to, val);
 	}
