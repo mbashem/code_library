@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
 
+// For gp_hash_table
+#include <ext/pb_ds/assoc_container.hpp>
+
+using namespace __gnu_pbds;
+
 using namespace std;
 
 typedef long long ll;
@@ -41,6 +46,10 @@ int main()
 	
 	// Example Use
 	unordered_map<int, int, custom_hash> mp;
+
+	// Faster
+	gp_hash_table<int, int, custom_hash> mp;
+
 	
 	return 0;
 }
