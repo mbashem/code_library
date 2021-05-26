@@ -70,12 +70,12 @@ vector<int> mosAlgorithm(vector<Query> &queries)
 		}
 		while (l < q.l)
 		{
-			remove(l);
+			remove(a[l]);
 			l++;
 		}
 		while (r > q.r)
 		{
-			remove(r);
+			remove(a[r]);
 			r--;
 		}
 		answers[q.i] = cnt;
