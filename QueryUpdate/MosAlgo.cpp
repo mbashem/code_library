@@ -35,8 +35,6 @@ vector<int> mosAlgorithm(vector<Query> &queries)
 	vector<int> answers(queries.size());
 	sort(queries.begin(), queries.end());
 
-	// TODO: initialize data structure
-
 	int cnt = 0;
 
 	auto add = [&](int x) -> void
@@ -55,7 +53,6 @@ vector<int> mosAlgorithm(vector<Query> &queries)
 
 	int l = 0;
 	int r = -1;
-	// invariant: data structure will always reflect the range [cur_l, cur_r]
 	for (Query q : queries)
 	{
 		while (l > q.l)
