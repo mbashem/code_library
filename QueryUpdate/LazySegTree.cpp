@@ -112,7 +112,7 @@ public:
 		lazy.resize(sz * 4 + 5, 0);
 	}
 
-	void Init(vector<int> &arr)
+	void init(vector<int> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
@@ -121,12 +121,12 @@ public:
 		build(0, n - 1, 1);
 	}
 
-	int Get(int qs, int qe)
+	int get(int qs, int qe)
 	{
 		return query(0, n - 1, 1, qs, qe);
 	}
 
-	void Update(int from, int to, int val)
+	void set(int from, int to, int val)
 	{
 		update(0, n - 1, 1, from, to, val);
 	}
@@ -151,7 +151,7 @@ int main()
 		for (int i = 0; i < s.size(); i++)
 			if (s[i] != '0')
 				a[i] = 1;
-		tree.Init(a);
+		tree.init(a);
 		int q;
 		cin >> q;
 		while (q--)
@@ -162,12 +162,12 @@ int main()
 			if (c == 'I')
 			{
 				cin >> i >> j, i--, j--;
-				tree.Update(i, j, 1);
+				tree.set(i, j, 1);
 			}
 			else
 			{
 				cin >> i, i--;
-				cout << (tree.Get(i, i) % 2) << endl;
+				cout << (tree.get(i, i) % 2) << endl;
 			}
 		}
 	}
