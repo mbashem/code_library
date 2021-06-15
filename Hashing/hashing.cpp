@@ -87,8 +87,8 @@ public:
 
 	DHash(int mxSize)
 	{
-		sh1 = sh1(mxSize, base1, mod1);
-		sh2 = sh2(mxSize, base2, mod2);
+		sh1 = Hash(mxSize, base1, mod1);
+		sh2 = Hash(mxSize, base2, mod2);
 	}
 
 	void init(string s)
