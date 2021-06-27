@@ -20,15 +20,18 @@ typedef pair<ll, ll> pll;
 /* 
 	@Class Version May need Debuging Never Used Before
 */
+
+template <typename T>
 class SegTree
 {
 private:
-	vector<int> segt, a;
+	vector<T> segt, a;
 	int n;
 
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
 	int getMid(int ss, int se) { return (ss + (se - ss) / 2); }
+	T op(T a, T b) { return min(a, b); }
 
 	void build(int ss, int se, int si)
 	{
@@ -42,10 +45,10 @@ private:
 		build(ss, mid, left(si));
 		build(mid + 1, se, right(si));
 
-		segt[si] = min(segt[left(si)], segt[right(si)]);
+		segt[si] = op(segt[left(si)], segt[right(si)]);
 	}
 
-	int query(int ss, int se, int qs, int qe, int si)
+	T query(int ss, int se, int qs, int qe, int si)
 	{
 		if (se < qs || qe < ss)
 			return INT_MAX;
@@ -55,7 +58,7 @@ private:
 
 		int mid = getMid(ss, se);
 
-		return min(query(ss, mid, qs, qe, left(si)), query(mid + 1, se, qs, qe, right(si)));
+		return op(query(ss, mid, qs, qe, left(si)), query(mid + 1, se, qs, qe, right(si)));
 	}
 
 	void update(int ss, int se, int key, int si)
@@ -73,7 +76,7 @@ private:
 		else
 			update(ss, mid, key, left(si));
 
-		segt[si] = min(segt[left(si)], segt[right(si)]);
+		segt[si] = op(segt[left(si)], segt[right(si)]);
 	}
 
 public:
@@ -83,7 +86,7 @@ public:
 		segt.resize(sz * 4 + 5);
 	}
 
-	void init(vector<int> &arr)
+	void init(vector<T> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
@@ -92,12 +95,12 @@ public:
 		build(0, n - 1, 1);
 	}
 
-	int get(int qs, int qe)
+	T get(int qs, int qe)
 	{
 		return query(0, n - 1, qs, qe, 1);
 	}
 
-	void set(int key, int val)
+	void set(int key, T val)
 	{
 		a[key] = val;
 		update(0, n - 1, key, 1);
@@ -174,7 +177,7 @@ int main()
 
 	vector<int> a = {4, 5, 6};
 
-	SegTree minTree = SegTree(1e5);
+	SegTree<int> minTree = SegTree<int>(1e5);
 	minTree.init(a);
 
 	cout << minTree.get(0, a.size() - 1) << endl;
