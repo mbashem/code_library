@@ -13,7 +13,7 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-class PrimePhiSieve
+struct PrimePhiSieve
 {
 private:
 	ll n;

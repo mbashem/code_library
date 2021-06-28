@@ -13,38 +13,24 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-class LazysegTree
+template<typename T,T e>
+struct LazysegTree
 {
 private:
-	vector<int> segT, lazy, a;
+	vector<T> segT, lazy;
 	int n;
 
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
 	int getMid(int ss, int se) { return (ss + (se - ss) / 2); }
+	T op(T a,T b) { return a + b;}
 
-	void build(int ss, int se, int si)
-	{
-		lazy[si] = 0;
-		if (ss == se)
-		{
-			segT[si] = a[ss];
-			return;
-		}
-
-		int mid = getMid(ss, se);
-		build(ss, mid, left(si));
-		build(mid + 1, se, right(si));
-
-		segT[si] = segT[left(si)] + segT[right(si)];
-	}
-
-	int query(int ss, int se, int si, int qs, int qe)
+	T query(int ss, int se, int si, int qs, int qe)
 	{
 		//	cout << ss << " " << se << " " << qs << " " << qe << " " << si << endl;
 		if (lazy[si] != 0)
 		{
-			int curr = lazy[si];
+			T curr = lazy[si];
 			lazy[si] = 0;
 			segT[si] += (curr * (se - ss + 1));
 
@@ -56,21 +42,21 @@ private:
 		}
 
 		if (se < qs || qe < ss)
-			return 0;
+			return e;
 
 		if (qs <= ss && qe >= se)
 			return segT[si];
 
 		int mid = getMid(ss, se);
 
-		return query(ss, mid, left(si), qs, qe) + query(mid + 1, se, right(si), qs, qe);
+		return op(query(ss, mid, left(si), qs, qe), query(mid + 1, se, right(si), qs, qe));
 	}
 
-	void update(int ss, int se, int si, int qs, int qe, int val)
+	void update(int ss, int se, int si, int qs, int qe, T val)
 	{
 		if (lazy[si] != 0)
 		{
-			int curr = lazy[si];
+			T curr = lazy[si];
 			lazy[si] = 0;
 			segT[si] += (curr * (se - ss + 1));
 
@@ -101,32 +87,29 @@ private:
 		update(mid + 1, se, si * 2 + 1, qs, qe, val);
 		update(ss, mid, left(si), qs, qe, val);
 
-		segT[si] = segT[left(si)] + segT[right(si)];
+		segT[si] = op(segT[left(si)], segT[right(si)]);
 	}
 
 public:
 	LazysegTree(int sz)
 	{
-		a.resize(sz + 5, 0);
 		segT.resize(sz * 4 + 5, 0);
 		lazy.resize(sz * 4 + 5, 0);
 	}
 
-	void init(vector<int> &arr)
+	void init(vector<T> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
-			a[i] = arr[i];
-
-		build(0, n - 1, 1);
+			set(i,i,arr[i]);
 	}
 
-	int get(int qs, int qe)
+	T get(int qs, int qe)
 	{
 		return query(0, n - 1, 1, qs, qe);
 	}
 
-	void set(int from, int to, int val)
+	void set(int from, int to, T val)
 	{
 		update(0, n - 1, 1, from, to, val);
 	}
@@ -139,7 +122,7 @@ int main()
 	int t, ts = 0;
 	cin >> t;
 
-	LazysegTree tree = LazysegTree(1e5);
+	LazysegTree<int,0> tree = LazysegTree<int,0>(1e5);
 
 	while (t--)
 	{

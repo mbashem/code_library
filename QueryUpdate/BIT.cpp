@@ -16,7 +16,7 @@ typedef pair<ll, ll> pll;
 // Insert 0 at the begining of input array to make it 1 based indexing
 // (ind & -ind) returns least significant bit position k, 2^(k-1) (1 based indexing)
 // for 101 will return 1; for 1010 will return 2;
-class BIT
+struct BIT
 {
 private:
 	vector<ll> mArray;

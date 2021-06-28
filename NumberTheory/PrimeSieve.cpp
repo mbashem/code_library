@@ -13,7 +13,7 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-class PrimeSieve
+struct PrimeSieve
 {
 public:
 	vector<int> primes;

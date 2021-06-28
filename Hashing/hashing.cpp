@@ -31,12 +31,12 @@ void generateRandomBM()
 	mod2 = PRIMES[rand() % q_len + 3 * q_len];
 }
 
-class Hash
+struct Hash
 {
+public:
 	vector<int> basePow, fHash, rHash;
 	ll base, mod;
 
-public:
 	Hash() {}
 	// Update it make it more dynamic like segTree class and DSU
 	Hash(int mxSize, ll base, ll mod) // Max size

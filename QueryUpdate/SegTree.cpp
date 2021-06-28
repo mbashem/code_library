@@ -21,8 +21,33 @@ typedef pair<ll, ll> pll;
 	@Class Version May need Debuging Never Used Before
 */
 
-template <typename T>
-class SegTree
+// T=>Data Type , e => return if query out of range
+
+/*
+	int op(int a, int b)
+	{
+		return min(a, b);
+	}
+ range minimum SegTree<int, op, INT_MAX> minTree(1e5);
+*/
+/* 
+	int op(int a, int b)
+	{
+		return max(a, b);
+	}
+	range maximum SegTree<int, op, INT_MIN> minTree(1e5)
+*/
+
+/* 
+	int op(int a, int b)
+	{
+		return a + b;
+	}
+	range rum SegTree<int, op, INT_MIN> minTree(1e5)
+*/
+
+template <typename T, T (*op)(T, T), T e>
+struct SegTree
 {
 private:
 	vector<T> segt, a;
@@ -31,27 +56,11 @@ private:
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
 	int getMid(int ss, int se) { return (ss + (se - ss) / 2); }
-	T op(T a, T b) { return min(a, b); }
-
-	void build(int ss, int se, int si)
-	{
-		if (ss == se)
-		{
-			segt[si] = a[ss];
-			return;
-		}
-
-		int mid = getMid(ss, se);
-		build(ss, mid, left(si));
-		build(mid + 1, se, right(si));
-
-		segt[si] = op(segt[left(si)], segt[right(si)]);
-	}
 
 	T query(int ss, int se, int qs, int qe, int si)
 	{
 		if (se < qs || qe < ss)
-			return INT_MAX;
+			return e;
 
 		if (qs <= ss && qe >= se)
 			return segt[si];
@@ -90,9 +99,7 @@ public:
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
-			a[i] = arr[i];
-
-		build(0, n - 1, 1);
+			set(i, arr[i]);
 	}
 
 	T get(int qs, int qe)
@@ -164,6 +171,11 @@ void update(int ss, int se, int key, int si)
 	segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
 }
 
+int op(int a, int b)
+{
+	return min(a, b);
+}
+
 int main()
 {
 	faster;
@@ -177,7 +189,7 @@ int main()
 
 	vector<int> a = {4, 5, 6};
 
-	SegTree<int> minTree = SegTree<int>(1e5);
+	SegTree<int, op, INT_MAX> minTree(1e5);
 	minTree.init(a);
 
 	cout << minTree.get(0, a.size() - 1) << endl;
