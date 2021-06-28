@@ -13,7 +13,7 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-template<typename T,T e>
+template <typename T, T (*op)(T, T), T (*e)()>
 struct LazysegTree
 {
 private:
@@ -23,7 +23,6 @@ private:
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
 	int getMid(int ss, int se) { return (ss + (se - ss) / 2); }
-	T op(T a,T b) { return a + b;}
 
 	T query(int ss, int se, int si, int qs, int qe)
 	{
@@ -42,7 +41,7 @@ private:
 		}
 
 		if (se < qs || qe < ss)
-			return e;
+			return e();
 
 		if (qs <= ss && qe >= se)
 			return segT[si];
@@ -101,7 +100,7 @@ public:
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
-			set(i,i,arr[i]);
+			set(i, i, arr[i]);
 	}
 
 	T get(int qs, int qe)
@@ -115,6 +114,16 @@ public:
 	}
 };
 
+int op(int a, int b)
+{
+	return a + b;
+}
+
+int e()
+{
+	return 0;
+}
+
 int main()
 {
 	faster;
@@ -122,7 +131,7 @@ int main()
 	int t, ts = 0;
 	cin >> t;
 
-	LazysegTree<int,0> tree = LazysegTree<int,0>(1e5);
+	LazysegTree<int, op, e> tree(1e5);
 
 	while (t--)
 	{
