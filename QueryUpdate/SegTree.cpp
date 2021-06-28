@@ -28,14 +28,24 @@ typedef pair<ll, ll> pll;
 	{
 		return min(a, b);
 	}
- range minimum SegTree<int, op, INT_MAX> minTree(1e5);
+
+	int e(){
+		return INT_MAX;
+	}
+
+ range minimum SegTree<int, op, e> minTree(1e5);
 */
 /* 
 	int op(int a, int b)
 	{
 		return max(a, b);
 	}
-	range maximum SegTree<int, op, INT_MIN> minTree(1e5)
+
+	int e(){
+		return INT_MIN;
+	}
+
+	range maximum SegTree<int, op, INT_MIN> maxTree(1e5)
 */
 
 /* 
@@ -43,10 +53,15 @@ typedef pair<ll, ll> pll;
 	{
 		return a + b;
 	}
-	range rum SegTree<int, op, INT_MIN> minTree(1e5)
+
+	int e(){
+		return 0;
+	}
+
+	range rum SegTree<int, op, INT_MIN> sumTree(1e5)
 */
 
-template <typename T, T (*op)(T, T), T e>
+template <typename T, T (*op)(T, T), T (*e)()>
 struct SegTree
 {
 private:
@@ -60,7 +75,7 @@ private:
 	T query(int ss, int se, int qs, int qe, int si)
 	{
 		if (se < qs || qe < ss)
-			return e;
+			return e();
 
 		if (qs <= ss && qe >= se)
 			return segt[si];
@@ -176,6 +191,10 @@ int op(int a, int b)
 	return min(a, b);
 }
 
+int e(){
+	return INT_MAX;
+}
+
 int main()
 {
 	faster;
@@ -184,12 +203,13 @@ int main()
 	int n = 4; // array size
 	build(0, n - 1, 1);
 	int i = 0, j = 0;
+	const int z = 5;
 	// for each query for index[i,j]
 	query(0, n - 1, i, j, 1);
 
 	vector<int> a = {4, 5, 6};
 
-	SegTree<int, op, INT_MAX> minTree(1e5);
+	SegTree<int, op, e> minTree(1e5);
 	minTree.init(a);
 
 	cout << minTree.get(0, a.size() - 1) << endl;
