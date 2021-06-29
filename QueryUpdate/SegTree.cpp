@@ -33,7 +33,7 @@ typedef pair<ll, ll> pll;
 		return INT_MAX;
 	}
 
- range minimum SegTree<int, op, e> minTree(1e5);
+ range minimum SegTree<int, op> minTree(1e5,INT_MAX);
 */
 /* 
 	int op(int a, int b)
@@ -45,7 +45,7 @@ typedef pair<ll, ll> pll;
 		return INT_MIN;
 	}
 
-	range maximum SegTree<int, op, INT_MIN> maxTree(1e5)
+	range maximum SegTree<int, op> maxTree(1e5,INT_MIN)
 */
 
 /* 
@@ -58,15 +58,16 @@ typedef pair<ll, ll> pll;
 		return 0;
 	}
 
-	range rum SegTree<int, op, INT_MIN> sumTree(1e5)
+	range rum SegTree<int, op> sumTree(1e5,0)
 */
 
-template <typename T, T (*op)(T, T), T (*e)()>
+template <typename T, T (*op)(T, T)>
 struct SegTree
 {
 private:
 	vector<T> segt, a;
 	int n;
+	T e;
 
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
@@ -75,7 +76,7 @@ private:
 	T query(int ss, int se, int qs, int qe, int si)
 	{
 		if (se < qs || qe < ss)
-			return e();
+			return e;
 
 		if (qs <= ss && qe >= se)
 			return segt[si];
@@ -104,10 +105,16 @@ private:
 	}
 
 public:
-	SegTree(int sz)
+	SegTree(int sz, T e)
 	{
-		a.resize(sz + 5);
-		segt.resize(sz * 4 + 5);
+		this->e = e;
+		a.resize(sz + 5, e);
+		segt.resize(sz * 4 + 5, e);
+	}
+
+	SegTree(vector<T> &arr, T e) : SegTree(arr.size(), e)
+	{
+		init(arr);
 	}
 
 	void init(vector<T> &arr)
@@ -191,7 +198,8 @@ int op(int a, int b)
 	return min(a, b);
 }
 
-int e(){
+int e()
+{
 	return INT_MAX;
 }
 
@@ -209,7 +217,7 @@ int main()
 
 	vector<int> a = {4, 5, 6};
 
-	SegTree<int, op, e> minTree(1e5);
+	SegTree<int, op> minTree(1e5, INT_MAX);
 	minTree.init(a);
 
 	cout << minTree.get(0, a.size() - 1) << endl;

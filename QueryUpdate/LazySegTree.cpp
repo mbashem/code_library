@@ -13,12 +13,13 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-template <typename T, T (*op)(T, T), T (*e)()>
+template <typename T, T (*op)(T, T)>
 struct LazysegTree
 {
 private:
 	vector<T> segT, lazy;
 	int n;
+	T e,lazyE;
 
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
@@ -26,11 +27,11 @@ private:
 
 	T query(int ss, int se, int si, int qs, int qe)
 	{
-		//	cout << ss << " " << se << " " << qs << " " << qe << " " << si << endl;
+		//	**** //
 		if (lazy[si] != 0)
 		{
 			T curr = lazy[si];
-			lazy[si] = 0;
+			lazy[si] = lazyE;
 			segT[si] += (curr * (se - ss + 1));
 
 			if (ss != se)
@@ -41,7 +42,7 @@ private:
 		}
 
 		if (se < qs || qe < ss)
-			return e();
+			return e;
 
 		if (qs <= ss && qe >= se)
 			return segT[si];
@@ -53,10 +54,12 @@ private:
 
 	void update(int ss, int se, int si, int qs, int qe, T val)
 	{
+		//	**** //
+
 		if (lazy[si] != 0)
 		{
 			T curr = lazy[si];
-			lazy[si] = 0;
+			lazy[si] = lazyE;
 			segT[si] += (curr * (se - ss + 1));
 
 			if (ss != se)
@@ -71,6 +74,8 @@ private:
 
 		if (qs <= ss && qe >= se)
 		{
+		//	**** //
+
 			segT[si] += (se - ss + 1) * val;
 
 			if (ss != se)
@@ -90,10 +95,17 @@ private:
 	}
 
 public:
-	LazysegTree(int sz)
+	LazysegTree(int sz,T e,T lazyE)
 	{
-		segT.resize(sz * 4 + 5, 0);
-		lazy.resize(sz * 4 + 5, 0);
+		this->e = e;
+		this->lazyE = lazyE;
+		cout << this->e << " " << this->lazyE << endl;
+		segT.resize(sz * 4 + 5, e);
+		lazy.resize(sz * 4 + 5, lazyE);
+	}
+
+	LazysegTree(vector<T> &arr,T e,T lazyE) : LazysegTree(arr.size(),e,lazyE){
+		init(arr);
 	}
 
 	void init(vector<T> &arr)
@@ -126,12 +138,11 @@ int e()
 
 int main()
 {
-	faster;
 
 	int t, ts = 0;
 	cin >> t;
 
-	LazysegTree<int, op, e> tree(1e5);
+	LazysegTree<int, op> tree(1e5,1,5);
 
 	while (t--)
 	{
