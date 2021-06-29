@@ -48,6 +48,8 @@ public:
 		return p[x];
 	}
 
+	// Return Size
+	int getSize(int x) { return sz[get(x)]; }
 	// Return if Union created Succesffully or false if they are already in Union
 	bool merge(int x, int y)
 	{

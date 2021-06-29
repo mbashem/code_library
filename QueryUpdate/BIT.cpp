@@ -44,7 +44,7 @@ public:
 		}
 	}
 
-	ll prefix_query(int ind)
+	ll prefixQuery(int ind)
 	{
 		int res = 0;
 		for (; ind > 0; ind -= (ind & -ind))
@@ -54,9 +54,9 @@ public:
 		return res;
 	}
 
-	ll range_query(int from, int to)
+	ll rangeQuery(int from, int to)
 	{
-		return prefix_query(to) - prefix_query(from - 1);
+		return prefixQuery(to) - prefixQuery(from - 1);
 	}
 
 	void add(int ind, ll add)
