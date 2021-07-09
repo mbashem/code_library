@@ -49,10 +49,10 @@ public:
 		return phi[number / divisor];
 	}
 
-	void factorize(ll num, vector<pll> &a)
+	vector<pll> factorize(ll num)
 	{
-		for (int i = 0; i < primes.size() && primes[i] * primes[i] <= num; i++)
-		{
+		vector<pll> a;
+		for (int i = 0; i < primes.size() && primes[i] * 1LL * primes[i] <= num; i++)
 			if (num % primes[i] == 0)
 			{
 				int cnt = 0;
@@ -60,10 +60,10 @@ public:
 					cnt++, num /= primes[i];
 				a.push_back({primes[i], cnt});
 			}
-		}
 
 		if (num != 1)
 			a.push_back({num, 1});
+		return a;
 	}
 
 	ll getPhi(int n)

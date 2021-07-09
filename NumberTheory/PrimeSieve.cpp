@@ -44,8 +44,9 @@ public:
 				primes.push_back(i);
 	}
 
-	void factorize(ll num, vector<pll> &a)
+	vector<pll> factorize(ll num)
 	{
+		vector<pll> a;
 		for (int i = 0; i < primes.size() && primes[i] * 1LL * primes[i] <= num; i++)
 			if (num % primes[i] == 0)
 			{
@@ -57,10 +58,12 @@ public:
 
 		if (num != 1)
 			a.push_back({num, 1});
+		return a;
 	}
 
-	void segementedSieve(vector<ll> &segPrimes, ll l, ll r)
+	vector<ll> segementedSieve(ll l, ll r)
 	{
+		vector<ll> segPrimes;
 		vector<bool> currentPrimes(r - l + 1, true);
 		for (ll p : primes)
 		{
@@ -85,6 +88,7 @@ public:
 				segPrimes.push_back(i);
 			}
 		}
+		return segPrimes;
 	}
 };
 
