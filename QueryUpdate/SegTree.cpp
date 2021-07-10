@@ -148,17 +148,7 @@ int segt[N * 4 + 5];
 
 void build(int ss, int se, int si)
 {
-	if (ss == se)
-	{
-		segt[si] = a[ss];
-		return;
-	}
-
-	int mid = ss + (se - ss) / 2;
-	build(ss, mid, si * 2);
-	build(mid + 1, se, si * 2 + 1);
-
-	segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
+	for(int i = 0; i <= se; i++) update(ss,se,i,1);
 }
 
 int query(int ss, int se, int qs, int qe, int si)

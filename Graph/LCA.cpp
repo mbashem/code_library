@@ -14,7 +14,6 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-
 // For more:https://cp-algorithms.com/graph/lca.html
 
 // Draft version
@@ -64,6 +63,11 @@ int getLCA(int a, int b)
 		}
 
 	return up[a][0];
+}
+
+int getDist(int a, int b)
+{
+	return depth[a] + depth[b] - 2 * depth[getLCA(a, b)];
 }
 
 int main()
