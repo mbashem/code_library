@@ -17,7 +17,7 @@ typedef pair<ll, ll> pll;
 // Draft
 const int N = 3e5, MOD = 998244353, p = MOD;
 
-ll fact[N + 1],factInv[N + 1],inv[N + 1];
+ll fact[N + 1], factInv[N + 1], inv[N + 1];
 
 auto gen() -> void
 {
@@ -46,6 +46,33 @@ auto Binomial(ll N, ll R, ll p) -> ll
 	// n C r = n!*inverse(r!)*inverse((n-r)!)
 	ll ans = ((fact[N] * factInv[R]) % p * factInv[N - R]) % p;
 	return ans;
+}
+
+ll bigMod(ll a, ll p, ll m)
+{
+	ll res = 1 % m, x = a % m;
+	while (p > 0)
+	{
+		if ((p & 1) > 0)
+			res = (res * x) % m;
+		x = (x * x) % m;
+		p >>= 1;
+	}
+	return res;
+}
+
+ll modInv(ll a, ll p)
+{
+	return bigMod(a, p - 2, p);
+}
+
+ll nCr(ll n, ll r, ll p)
+{
+	if (n < r)
+		return 0;
+	if (r == 0)
+		return 1;
+	return (((fact[n] * modInv(fact[r],p)) % p) * modInv(fact[n - r],p)) % p;
 }
 
 int main()
