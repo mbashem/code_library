@@ -33,7 +33,7 @@ public:
 		this->n = n;
 		this->lg = bit;
 
-		st.resize(n);
+		st.resize(n, vector<T>(lg));
 		logs.resize(n + 1, 0);
 		logs[1] = 0;
 		for (int i = 2; i <= n; i++)
