@@ -15,7 +15,7 @@ typedef pair<ll,ll> pll;
 #define endl "\n"
 
 // DRAFT RMQ
-template <typename T>
+template <typename T, T (*op)(T, T)>
 struct RMQ
 {
 private:
@@ -25,7 +25,7 @@ private:
 	T e;
 
 public:
-	RMQ(int n, T e)
+	RMQ(int n)
 	{
 		int bit = 0;
 		while ((1 << bit) <= n)
@@ -33,16 +33,16 @@ public:
 		this->n = n;
 		this->lg = bit;
 
-		st.resize(n + 5, vector<T>(lg, e));
-		logs.resize(n + 5, 0);
+		st.resize(n);
+		logs.resize(n + 1, 0);
 		logs[1] = 0;
-		for (int i = 2; i < n; i++)
+		for (int i = 2; i <= n; i++)
 		{
 			logs[i] = logs[i / 2] + 1;
 		}
 	}
 
-	RMQ(vector<T> &a, T e) : RMQ(a.size(), e)
+	RMQ(vector<T> &a) : RMQ(a.size())
 	{
 		init(a);
 	}
@@ -52,27 +52,40 @@ public:
 		this->n = a.size();
 
 		for (int i = 0; i < n; i++)
+		{
 			st[i][0] = a[i];
+		}
 
 		for (int j = 1; j <= lg; j++)
 		{
-			for (int i = 0; i + (1 << j) < n; i++)
+			for (int i = 0; i + (1 << j) <= n; i++)
 			{
-				st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+				st[i][j] = op(st[i][j - 1], st[min(i + (1 << (j - 1)),n-1)][j - 1]);
 			}
 		}
 	}
 
-	T get(int l,int r){
-		int j = logs[r-l+1];
-		return min(st[l][j],st[r-(1<<j)+1][j]);
+	T get(int l, int r)
+	{
+		int j = logs[r - l + 1];
+		return op(st[l][j], st[r - (1 << j) + 1][j]);
 	}
 };
+
+int op(int a, int b)
+{
+	if (a == -1)
+		return b;
+	if (b == -1)
+		return a;
+	return gcd(a, b);
+}
+
 
 auto main() -> int
 {
 
-	RMQ<ll> rmq(5,0);
+	RMQ<int,op> rmq(5);
 	
 	return 0;
 }
