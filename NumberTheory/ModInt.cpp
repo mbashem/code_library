@@ -20,7 +20,7 @@ struct _m_int
 {
 	int val;
 
-	_m_int(ll v = 0)
+	_m_int(int64_t v = 0)
 	{
 		if (v < 0)
 			v = v % MOD + MOD;
@@ -29,20 +29,20 @@ struct _m_int
 		val = int(v);
 	}
 
-	_m_int(ll v)
+	_m_int(uint64_t v)
 	{
 		if (v >= MOD)
 			v %= MOD;
 		val = int(v);
 	}
 
-	_m_int(int v) : _m_int(ll(v)) {}
-	_m_int(unsigned v) : _m_int(ll(v)) {}
+	_m_int(int v) : _m_int(int64_t(v)) {}
+	_m_int(unsigned v) : _m_int(uint64_t(v)) {}
 
 	explicit operator int() const { return val; }
 	explicit operator unsigned() const { return val; }
-	explicit operator ll() const { return val; }
-	explicit operator ll() const { return val; }
+	explicit operator int64_t() const { return val; }
+	explicit operator uint64_t() const { return val; }
 	explicit operator double() const { return val; }
 	explicit operator long double() const { return val; }
 
@@ -62,7 +62,7 @@ struct _m_int
 		return *this;
 	}
 
-	static unsigned fast_mod(ll x, unsigned m = MOD)
+	static unsigned fast_mod(uint64_t x, unsigned m = MOD)
 	{
 #if !defined(_WIN32) || defined(_WIN64)
 		return unsigned(x % m);
@@ -79,7 +79,7 @@ struct _m_int
 
 	_m_int &operator*=(const _m_int &other)
 	{
-		val = fast_mod(ll(val) * other.val);
+		val = fast_mod(uint64_t(val) * other.val);
 		return *this;
 	}
 
@@ -136,7 +136,7 @@ struct _m_int
 	static void prepare_inv()
 	{
 		// Make sure MOD is prime, which is necessary for the inverse algorithm below.
-		for (ll p = 2; p * p <= MOD; p += p % 2 + 1)
+		for (int64_t p = 2; p * p <= MOD; p += p % 2 + 1)
 			assert(MOD % p != 0);
 
 		save_inv[0] = 0;
@@ -166,7 +166,7 @@ struct _m_int
 		return product * save_inv[v];
 	}
 
-	_m_int pow(ll p) const
+	_m_int pow(int64_t p) const
 	{
 		if (p < 0)
 			return inv().pow(-p);
@@ -197,7 +197,7 @@ template <const int &MOD>
 _m_int<MOD> _m_int<MOD>::save_inv[_m_int<MOD>::SAVE_INV];
 
 extern const int MOD = int(1e9) + 7;
-using mod_int = _m_int<MOD>;
+using mint = _m_int<MOD>;
 
 int main()
 {
