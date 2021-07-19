@@ -29,15 +29,24 @@ bool Check(ll n, int p)
 	return (n & (1LL << p)) != 0;
 }
 
-ll bigMod(ll a, ll p, ll m) {
+ll bigMod(ll a, ll p, ll m)
+{
 	ll res = 1 % m, x = a % m;
-	while (p > 0) {
+	while (p > 0)
+	{
 		if ((p & 1) > 0)
 			res = (res * x) % m;
 		x = (x * x) % m;
 		p >>= 1;
 	}
 	return res;
+}
+
+// random number generator
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+int ran(int l, int r)
+{
+	return uniform_int_distribution<int>(l, r)(rng);
 }
 
 int main()
