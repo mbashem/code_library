@@ -3,11 +3,11 @@
 using namespace std;
 
 typedef long long ll;
-typedef pair<int,int> pii;
-typedef pair<ll,ll> pll;
+typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
 
 #define var(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
-#define mem(x,n) memset(x,n,sizeof(x))
+#define mem(x, n) memset(x, n, sizeof(x))
 #define all(x) x.begin(), x.end()
 
 namespace ios
@@ -131,16 +131,19 @@ namespace ios
 
 using namespace ios;
 
-
 int main()
 {
+#ifdef LOCAL
+	IO(false);
+#else
+	IO(true);
+#endif
 	int t;
 	cin >> t;
-	
-	while(t--)
+
+	while (t--)
 	{
-		
 	}
-	
+
 	return 0;
 }
