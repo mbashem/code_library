@@ -6,9 +6,9 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 
-#define faster ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0)
-#define read freopen("in.txt", "r", stdin)
-#define write freopen("out.txt", "w", stdout)
+#define faster ios_base::sync_with_stdio(false), cin.tie(0)
+#define read(x) freopen(x, "r", stdin)
+#define write(x) freopen(x, "w", stdout)
 #define var(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 #define mem(x, n) memset(x, n, sizeof(x))
 #define all(x) x.begin(), x.end()
@@ -56,8 +56,9 @@ int main()
 	int t;
 	cin >> t;
 
-	while (t--)
+	for (int tc = 1; tc <= t; tc++)
 	{
+		
 	}
 
 	return 0;
