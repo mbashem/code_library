@@ -47,7 +47,7 @@ public:
 	vector<pll> factorize(ll num)
 	{
 		vector<pll> a;
-		for (int i = 0; i < primes.size() && primes[i] * 1LL * primes[i] <= num; i++)
+		for (int i = 0; i < (int)primes.size() && primes[i] * 1LL * primes[i] <= num; i++)
 			if (num % primes[i] == 0)
 			{
 				int cnt = 0;

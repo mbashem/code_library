@@ -53,10 +53,10 @@ int main()
 {
 	faster;
 
-	int t;
+	int t, tc = 0;
 	cin >> t;
 
-	for (int tc = 1; tc <= t; tc++)
+	while (tc++ < t)
 	{
 		
 	}
