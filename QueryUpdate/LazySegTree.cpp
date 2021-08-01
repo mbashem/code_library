@@ -13,13 +13,15 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-template <typename T, T (*op)(T, T)>
+template <typename T, T (*op)(T, T), typename F = T>
 struct LazysegTree
 {
 private:
-	vector<T> segT, lazy;
+	vector<T> segT;
+	vector<F> lazy;
 	int n;
-	T e,lazyE;
+	T neutral;
+	F lazyE;
 
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
@@ -42,7 +44,7 @@ private:
 		}
 
 		if (se < qs || qe < ss)
-			return e;
+			return neutral;
 
 		if (qs <= ss && qe >= se)
 			return segT[si];
@@ -52,13 +54,13 @@ private:
 		return op(query(ss, mid, left(si), qs, qe), query(mid + 1, se, right(si), qs, qe));
 	}
 
-	void update(int ss, int se, int si, int qs, int qe, T val)
+	void update(int ss, int se, int si, int qs, int qe, F val)
 	{
 		//	**** //
 
 		if (lazy[si] != 0)
 		{
-			T curr = lazy[si];
+			F curr = lazy[si];
 			lazy[si] = lazyE;
 			segT[si] += (curr * (se - ss + 1));
 
@@ -74,7 +76,7 @@ private:
 
 		if (qs <= ss && qe >= se)
 		{
-		//	**** //
+			//	**** //
 
 			segT[si] += (se - ss + 1) * val;
 
@@ -95,16 +97,16 @@ private:
 	}
 
 public:
-	LazysegTree(int sz,T e,T lazyE)
+	LazysegTree(int sz, T ini, T neutral, F lazyE)
 	{
-		this->e = e;
+		this->neutral = neutral;
 		this->lazyE = lazyE;
-		cout << this->e << " " << this->lazyE << endl;
-		segT.resize(sz * 4 + 5, e);
+		segT.resize(sz * 4 + 5, ini);
 		lazy.resize(sz * 4 + 5, lazyE);
 	}
 
-	LazysegTree(vector<T> &arr,T e,T lazyE) : LazysegTree(arr.size(),e,lazyE){
+	LazysegTree(vector<T> &arr, T ini, T neutral, F lazyE) : LazysegTree(arr.size(), ini, neutral, lazyE)
+	{
 		init(arr);
 	}
 
@@ -120,7 +122,7 @@ public:
 		return query(0, n - 1, 1, qs, qe);
 	}
 
-	void set(int from, int to, T val)
+	void set(int from, int to, F val)
 	{
 		update(0, n - 1, 1, from, to, val);
 	}
@@ -142,7 +144,7 @@ int main()
 	int t, ts = 0;
 	cin >> t;
 
-	LazysegTree<int, op> tree(1e5,1,5);
+	LazysegTree<int, op> tree(1e5, 0, 1, 5);
 
 	while (t--)
 	{
@@ -151,7 +153,7 @@ int main()
 		cin >> s;
 
 		vector<int> a(s.size(), 0);
-		for (int i = 0; i < s.size(); i++)
+		for (int i = 0; i < (int)s.size(); i++)
 			if (s[i] != '0')
 				a[i] = 1;
 		tree.init(a);
