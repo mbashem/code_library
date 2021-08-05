@@ -49,17 +49,23 @@ int ran(int l, int r)
 	return uniform_int_distribution<int>(l, r)(rng);
 }
 
+template <typename T>
+using minheap = priority_queue<T, vector<T>, greater<T>>;
+
+void runCase(int tc)
+{
+	
+}
+
 int main()
 {
 	faster;
 
-	int t, tc = 0;
+	int t = 1;
 	cin >> t;
 
-	while (tc++ < t)
-	{
-		
-	}
+	for (int tc = 1; tc <= t; tc++)
+		runCase(tc);
 
 	return 0;
 }
