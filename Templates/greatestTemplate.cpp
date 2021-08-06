@@ -53,9 +53,32 @@ int ran(int l, int r)
 template <typename T>
 using minheap = priority_queue<T, vector<T>, greater<T>>;
 
+template <typename T, typename F>
+pair<T, F> operator+(pair<T, F> a, pair<T, F> b)
+{
+	return {a.first + b.first, a.second + b.second};
+}
+
+template <typename T, typename F>
+pair<T, F> operator-(pair<T, F> a, pair<T, F> b)
+{
+	return {a.first - b.first, a.second - b.second};
+}
+
+template <typename T, typename F>
+pair<T, F> operator*(pair<T, F> a, pair<T, F> b)
+{
+	return {a.first * b.first, a.second * b.second};
+}
+
+template <typename T, typename F>
+pair<T, F> operator/(pair<T, F> a, pair<T, F> b)
+{
+	return {a.first / b.first, a.second / b.second};
+}
+
 void runCase(int tc)
 {
-	
 }
 
 int main()
