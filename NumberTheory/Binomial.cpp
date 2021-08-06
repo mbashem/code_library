@@ -14,34 +14,30 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-// Draft
-const int N = 3e5, MOD = 998244353, p = MOD;
+const int N = 1e6, MOD = 998244353;
 
 ll fact[N + 1], factInv[N + 1], inv[N + 1];
 
-auto gen() -> void
+void gen()
 {
 	fact[0] = 1;
 
-	// precompute factorials
 	for (int i = 1; i <= N; i++)
 	{
-		fact[i] = (fact[i - 1] * i) % p;
+		fact[i] = (fact[i - 1] * i) % MOD;
 	}
 
 	inv[0] = inv[1] = 1;
 	for (int i = 2; i <= N; i++)
-		inv[i] = inv[p % i] * (p - p / i) % p;
+		inv[i] = inv[MOD % i] * (MOD - MOD / i) % MOD;
 
 	factInv[0] = factInv[1] = 1;
 
-	// precompute inverse of natural numbers
 	for (int i = 2; i <= N; i++)
-		factInv[i] = (inv[i] * factInv[i - 1]) % p;
+		factInv[i] = (inv[i] * factInv[i - 1]) % MOD;
 }
 
-// Function to return nCr % p in O(1) time
-auto Binomial(ll N, ll R, ll p) -> ll
+ll Binomial(ll N, ll R, ll p = MOD)
 {
 	// n C r = n!*inverse(r!)*inverse((n-r)!)
 	ll ans = ((fact[N] * factInv[R]) % p * factInv[N - R]) % p;
@@ -72,7 +68,7 @@ ll nCr(ll n, ll r, ll p)
 		return 0;
 	if (r == 0)
 		return 1;
-	return (((fact[n] * modInv(fact[r],p)) % p) * modInv(fact[n - r],p)) % p;
+	return (((fact[n] * modInv(fact[r], p)) % p) * modInv(fact[n - r], p)) % p;
 }
 
 int main()
