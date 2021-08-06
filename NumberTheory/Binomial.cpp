@@ -16,60 +16,70 @@ typedef pair<ll, ll> pll;
 
 const int N = 1e6, MOD = 998244353;
 
-ll fact[N + 1], factInv[N + 1], inv[N + 1];
-
-void gen()
+struct Binomial
 {
-	fact[0] = 1;
+	vector<ll> fact, factInv, inv;
+	ll mod, n;
 
-	for (int i = 1; i <= N; i++)
+	Binomial(ll n, ll mod)
 	{
-		fact[i] = (fact[i - 1] * i) % MOD;
+		this->n = n;
+		this->mod = mod;
+		fact.resize(n + 1, 1), factInv.resize(n + 1, 1), inv.resize(n + 1, 1);
+		gen();
 	}
 
-	inv[0] = inv[1] = 1;
-	for (int i = 2; i <= N; i++)
-		inv[i] = inv[MOD % i] * (MOD - MOD / i) % MOD;
-
-	factInv[0] = factInv[1] = 1;
-
-	for (int i = 2; i <= N; i++)
-		factInv[i] = (inv[i] * factInv[i - 1]) % MOD;
-}
-
-ll Binomial(ll N, ll R, ll p = MOD)
-{
-	// n C r = n!*inverse(r!)*inverse((n-r)!)
-	ll ans = ((fact[N] * factInv[R]) % p * factInv[N - R]) % p;
-	return ans;
-}
-
-ll bigMod(ll a, ll p, ll m)
-{
-	ll res = 1 % m, x = a % m;
-	while (p > 0)
+	void gen()
 	{
-		if ((p & 1) > 0)
-			res = (res * x) % m;
-		x = (x * x) % m;
-		p >>= 1;
+		fact[0] = 1;
+
+		for (int i = 1; i <= n; i++)
+		{
+			fact[i] = (fact[i - 1] * i) % mod;
+		}
+
+		inv[0] = inv[1] = 1;
+		for (int i = 2; i <= n; i++)
+			inv[i] = inv[mod % i] * (mod - mod / i) % mod;
+
+		factInv[0] = factInv[1] = 1;
+
+		for (int i = 2; i <= n; i++)
+			factInv[i] = (inv[i] * factInv[i - 1]) % mod;
 	}
-	return res;
-}
 
-ll modInv(ll a, ll p)
-{
-	return bigMod(a, p - 2, p);
-}
+	ll nCr(ll n, ll r)
+	{
+		return (((fact[n] * 1LL * factInv[r]) % mod) * 1LL * factInv[n - r]) % mod;
+	}
 
-ll nCr(ll n, ll r, ll p)
-{
-	if (n < r)
-		return 0;
-	if (r == 0)
-		return 1;
-	return (((fact[n] * modInv(fact[r], p)) % p) * modInv(fact[n - r], p)) % p;
-}
+	ll pow(ll a, ll p, ll m)
+	{
+		ll res = 1 % m, x = a % m;
+		while (p > 0)
+		{
+			if ((p & 1) > 0)
+				res = (res * x) % m;
+			x = (x * x) % m;
+			p >>= 1;
+		}
+		return res;
+	}
+
+	ll modInv(ll a, ll p)
+	{
+		return pow(a, p - 2, p);
+	}
+
+	ll nCr(ll n, ll r, ll p)
+	{
+		if (n < r)
+			return 0;
+		if (r == 0)
+			return 1;
+		return (((fact[n] * modInv(fact[r], p)) % p) * modInv(fact[n - r], p)) % p;
+	}
+};
 
 int main()
 {
@@ -77,6 +87,8 @@ int main()
 
 	int t;
 	cin >> t;
+
+	Binomial bnm(N,MOD);
 
 	while (t--)
 	{
