@@ -16,12 +16,12 @@ typedef pair<ll, ll> pll;
 
 const int N = 1e6, MOD = 998244353;
 
-struct Binomial
+struct Combinatrics
 {
 	vector<ll> fact, factInv, inv;
 	ll mod, nl;
 
-	Binomial(ll n, ll mod)
+	Combinatrics(ll n, ll mod)
 	{
 		this->nl = n;
 		this->mod = mod;
@@ -48,11 +48,18 @@ struct Binomial
 			factInv[i] = (inv[i] * factInv[i - 1]) % mod;
 	}
 
-	ll nCr(ll n, ll r)
+	ll ncr(ll n, ll r)
 	{
 		if (n > nl)
-			return nCr(n, r, mod);
+			return ncr(n, r, mod);
 		return (((fact[n] * 1LL * factInv[r]) % mod) * 1LL * factInv[n - r]) % mod;
+	}
+
+	ll npr(ll n, ll r)
+	{
+		if (n > nl)
+			return npr(n, r, mod);
+		return (fact[n] * 1LL * factInv[n - r]) % mod;
 	}
 
 	ll bigMod(ll a, ll p, ll m)
@@ -73,13 +80,22 @@ struct Binomial
 		return bigMod(a, p - 2, p);
 	}
 
-	ll nCr(ll n, ll r, ll p)
+	ll ncr(ll n, ll r, ll p)
 	{
 		if (n < r)
 			return 0;
 		if (r == 0)
 			return 1;
 		return (((fact[n] * modInv(fact[r], p)) % p) * modInv(fact[n - r], p)) % p;
+	}
+
+	ll npr(ll n, ll r, ll p)
+	{
+		if (n < r)
+			return 0;
+		if (r == 0)
+			return 1;
+		return (fact[n] * modInv(fact[n - r], p)) % p;
 	}
 };
 
@@ -90,7 +106,7 @@ int main()
 	int t;
 	cin >> t;
 
-	Binomial bnm(N, MOD);
+	Combinatrics comb(N, MOD);
 
 	while (t--)
 	{
