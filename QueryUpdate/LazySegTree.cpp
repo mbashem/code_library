@@ -30,7 +30,7 @@ private:
 	T query(int ss, int se, int si, int qs, int qe)
 	{
 		//	**** //
-		if (lazy[si] != 0)
+		if (lazy[si] != lazyE)
 		{
 			T curr = lazy[si];
 			lazy[si] = lazyE;
@@ -58,7 +58,7 @@ private:
 	{
 		//	**** //
 
-		if (lazy[si] != 0)
+		if (lazy[si] != lazyE)
 		{
 			F curr = lazy[si];
 			lazy[si] = lazyE;
