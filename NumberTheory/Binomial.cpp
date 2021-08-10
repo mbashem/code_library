@@ -26,10 +26,10 @@ struct Binomial
 		this->n = n;
 		this->mod = mod;
 		fact.resize(n + 1, 1), factInv.resize(n + 1, 1), inv.resize(n + 1, 1);
-		gen();
+		init();
 	}
 
-	void gen()
+	void init()
 	{
 		fact[0] = 1;
 
@@ -53,7 +53,7 @@ struct Binomial
 		return (((fact[n] * 1LL * factInv[r]) % mod) * 1LL * factInv[n - r]) % mod;
 	}
 
-	ll pow(ll a, ll p, ll m)
+	ll bigMod(ll a, ll p, ll m)
 	{
 		ll res = 1 % m, x = a % m;
 		while (p > 0)
@@ -68,7 +68,7 @@ struct Binomial
 
 	ll modInv(ll a, ll p)
 	{
-		return pow(a, p - 2, p);
+		return bigMod(a, p - 2, p);
 	}
 
 	ll nCr(ll n, ll r, ll p)
