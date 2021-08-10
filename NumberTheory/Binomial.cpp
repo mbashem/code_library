@@ -19,11 +19,11 @@ const int N = 1e6, MOD = 998244353;
 struct Binomial
 {
 	vector<ll> fact, factInv, inv;
-	ll mod, n;
+	ll mod, nl;
 
 	Binomial(ll n, ll mod)
 	{
-		this->n = n;
+		this->nl = n;
 		this->mod = mod;
 		fact.resize(n + 1, 1), factInv.resize(n + 1, 1), inv.resize(n + 1, 1);
 		init();
@@ -33,23 +33,25 @@ struct Binomial
 	{
 		fact[0] = 1;
 
-		for (int i = 1; i <= n; i++)
+		for (int i = 1; i <= nl; i++)
 		{
 			fact[i] = (fact[i - 1] * i) % mod;
 		}
 
 		inv[0] = inv[1] = 1;
-		for (int i = 2; i <= n; i++)
+		for (int i = 2; i <= nl; i++)
 			inv[i] = inv[mod % i] * (mod - mod / i) % mod;
 
 		factInv[0] = factInv[1] = 1;
 
-		for (int i = 2; i <= n; i++)
+		for (int i = 2; i <= nl; i++)
 			factInv[i] = (inv[i] * factInv[i - 1]) % mod;
 	}
 
 	ll nCr(ll n, ll r)
 	{
+		if (n > nl)
+			return nCr(n, r, mod);
 		return (((fact[n] * 1LL * factInv[r]) % mod) * 1LL * factInv[n - r]) % mod;
 	}
 
@@ -88,7 +90,7 @@ int main()
 	int t;
 	cin >> t;
 
-	Binomial bnm(N,MOD);
+	Binomial bnm(N, MOD);
 
 	while (t--)
 	{
