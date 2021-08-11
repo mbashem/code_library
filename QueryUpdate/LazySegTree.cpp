@@ -13,7 +13,7 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-template <typename T, T (*op)(T, T), typename F, F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
+template <typename T, typename F, T (*op)(T, T), F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
 struct LazysegTree
 {
 private:
@@ -149,7 +149,7 @@ int main()
 	int t, ts = 0;
 	cin >> t;
 
-	LazysegTree<int, op, int, lazyToLazy, lazyToSeg> tree(1e5, 0, 1, 5);
+	LazysegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 1, 5);
 
 	while (t--)
 	{
