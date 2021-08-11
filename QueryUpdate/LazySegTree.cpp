@@ -13,7 +13,7 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-template <typename T, T (*op)(T, T), typename F = T>
+template <typename T, T (*op)(T, T), typename F, F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
 struct LazysegTree
 {
 private:
@@ -34,12 +34,12 @@ private:
 		{
 			T curr = lazy[si];
 			lazy[si] = lazyE;
-			segT[si] += (curr * (se - ss + 1));
+			segT[si] = lazyToSeg(segT[si], curr, ss, se);
 
 			if (ss != se)
 			{
-				lazy[left(si)] += curr;
-				lazy[right(si)] += curr;
+				lazy[left(si)] = lazyToLazy(lazy[left(si)], curr);
+				lazy[right(si)] = lazyToLazy(lazy[right(si)], curr);
 			}
 		}
 
@@ -62,12 +62,11 @@ private:
 		{
 			F curr = lazy[si];
 			lazy[si] = lazyE;
-			segT[si] += (curr * (se - ss + 1));
-
+			segT[si] = lazyToSeg(segT[si], curr, ss, se);
 			if (ss != se)
 			{
-				lazy[left(si)] += curr;
-				lazy[right(si)] += curr;
+				lazy[left(si)] = lazyToLazy(lazy[left(si)], curr);
+				lazy[right(si)] = lazyToLazy(lazy[right(si)], curr);
 			}
 		}
 
@@ -78,12 +77,12 @@ private:
 		{
 			//	**** //
 
-			segT[si] += (se - ss + 1) * val;
+			segT[si] = lazyToSeg(segT[si], val, ss, se);
 
 			if (ss != se)
 			{
-				lazy[left(si)] += val;
-				lazy[right(si)] += val;
+				lazy[left(si)] = lazyToLazy(lazy[left(si)], val);
+				lazy[right(si)] = lazyToLazy(lazy[right(si)], val);
 			}
 			return;
 		}
@@ -134,9 +133,14 @@ int op(int a, int b)
 	return a + b;
 }
 
-int e()
+int lazyToSeg(int seg, int lazyV, int l, int r)
 {
-	return 0;
+	return seg + (lazyV * (r - l + 1));
+}
+
+int lazyToLazy(int lazyV, int v)
+{
+	return lazyV + v;
 }
 
 int main()
@@ -145,7 +149,7 @@ int main()
 	int t, ts = 0;
 	cin >> t;
 
-	LazysegTree<int, op> tree(1e5, 0, 1, 5);
+	LazysegTree<int, op, int, lazyToLazy, lazyToSeg> tree(1e5, 0, 1, 5);
 
 	while (t--)
 	{
