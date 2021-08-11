@@ -99,10 +99,11 @@ private:
 public:
 	LazysegTree(int sz, T ini, T neutral, F lazyE)
 	{
+		this->n = sz + 1;
 		this->neutral = neutral;
 		this->lazyE = lazyE;
-		segT.resize(sz * 4 + 5, ini);
-		lazy.resize(sz * 4 + 5, lazyE);
+		segT.resize(n * 4 + 5, ini);
+		lazy.resize(n * 4 + 5, lazyE);
 	}
 
 	LazysegTree(vector<T> &arr, T ini, T neutral, F lazyE) : LazysegTree(arr.size(), ini, neutral, lazyE)
