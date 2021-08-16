@@ -27,13 +27,15 @@ public:
 	DSU(int dsz) // Max size
 	{
 		//Default empty
-		p.resize(dsz + 1, 0), sz.resize(dsz + 1, 0);
+		p.resize(dsz + 5, 0), sz.resize(dsz + 5, 0);
+
+		init(dsz);
 	}
 
 	void init(int n)
 	{
 		// n = size
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i <= n; i++)
 		{
 			p[i] = i, sz[i] = 1;
 		}
