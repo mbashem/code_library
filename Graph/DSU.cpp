@@ -21,13 +21,13 @@ typedef pair<ll, ll> pll;
 
 class DSU
 {
-	vector<int> p, sz;
+	vector<int> p, csz;
 
 public:
 	DSU(int dsz) // Max size
 	{
 		//Default empty
-		p.resize(dsz + 5, 0), sz.resize(dsz + 5, 0);
+		p.resize(dsz + 5, 0), csz.resize(dsz + 5, 0);
 
 		init(dsz);
 	}
@@ -37,7 +37,7 @@ public:
 		// n = size
 		for (int i = 0; i <= n; i++)
 		{
-			p[i] = i, sz[i] = 1;
+			p[i] = i, csz[i] = 1;
 		}
 	}
 
@@ -51,7 +51,7 @@ public:
 	}
 
 	// Return Size
-	int getSize(int x) { return sz[get(x)]; }
+	int getSize(int x) { return csz[get(x)]; }
 	// Return if Union created Succesffully or false if they are already in Union
 	bool merge(int x, int y)
 	{
@@ -59,11 +59,11 @@ public:
 		if (x == y)
 			return false;
 
-		if (sz[x] > sz[y])
+		if (csz[x] > csz[y])
 			swap(x, y);
 
 		p[x] = y;
-		sz[y] += sz[x];
+		csz[y] += csz[x];
 
 		return true;
 	}
@@ -73,7 +73,7 @@ public:
 // Default size
 
 const int N = 2e5;
-int p[N], sz[N];
+int p[N], csz[N];
 
 // Init till n
 void init(int n)
@@ -81,7 +81,7 @@ void init(int n)
 	// n = size
 	for (int i = 0; i < n; i++)
 	{
-		p[i] = i, sz[i] = 1;
+		p[i] = i, csz[i] = 1;
 	}
 }
 
@@ -101,11 +101,11 @@ bool Union(int x, int y)
 	if (x == y)
 		return false;
 
-	if (sz[x] > sz[y])
+	if (csz[x] > csz[y])
 		swap(x, y);
 
 	p[x] = y;
-	sz[y] += sz[x];
+	csz[y] += csz[x];
 
 	return true;
 }
@@ -113,10 +113,10 @@ bool Union(int x, int y)
 int main()
 {
 	faster;
-	int sz = 20; // Size of array
-	DSU dsu = DSU(sz);
+	int csz = 20; // Size of array
+	DSU dsu = DSU(csz);
 	// Union
-	bool res = dsu.merge(sz - 1, sz - 2); // Demo
+	bool res = dsu.merge(csz - 1, csz - 2); // Demo
 
 	return 0;
 }
