@@ -17,17 +17,17 @@ namespace ios
 	static const string line = "\n###################\n";
 	bool debug;
 
-	auto flush() -> void
+	void flush()
 	{
 		cout << std::flush;
 	}
 
-	auto setPrecision(int precision) -> void
+	void setPrecision(int precision)
 	{
 		cout << fixed << setprecision(precision);
 	}
 
-	auto IO(bool fast = true)
+	void IO(bool fast = true)
 	{
 		debug = !fast;
 		if (fast)
@@ -35,7 +35,7 @@ namespace ios
 		setPrecision(10);
 	}
 
-	auto IO(string in, string write, bool fast = true)
+	void IO(string in, string write, bool fast = true)
 	{
 		IO(fast);
 		if (fast)
@@ -45,13 +45,13 @@ namespace ios
 		}
 	}
 
-	auto IO(string in, bool fast = true)
+	void IO(string in, bool fast = true)
 	{
 		IO(in, in, fast);
 	}
 
 	template <typename T>
-	auto read(T &x) -> bool
+	bool read(T &x)
 	{
 		if (cin.eof())
 			return false;
@@ -61,41 +61,45 @@ namespace ios
 	}
 
 	template <typename T, typename... Args>
-	auto read(T &x, Args &...args) -> bool
+	bool read(T &x, Args &...args)
 	{
 		return read(x) && read(args...);
 	}
 
 	template <typename ITER>
-	auto readIt(ITER begin, ITER end) -> void
+	bool readIt(ITER begin, ITER end)
 	{
+		bool found = true;
+
 		while (begin != end)
 		{
-			read(*begin);
+			found &= read(*begin);
 			begin++;
 		}
+
+		return found;
 	}
 
-	auto ln() -> void
+	void ln()
 	{
 		cout << ios::line;
 	}
 
 	template <typename T>
-	auto write(T x) -> void
+	void write(T x)
 	{
 		cout << x;
 	}
 
 	template <typename T, typename... Args>
-	auto write(T x, Args... args) -> void
+	void write(T x, Args... args)
 	{
 		write(x);
 		write(args...);
 	}
 
 	template <typename ITER>
-	auto writeIt(ITER begin, ITER end, string between = "") -> void
+	void writeIt(ITER begin, ITER end, string between = "")
 	{
 		while (begin != end)
 		{
@@ -107,7 +111,7 @@ namespace ios
 
 	// debug
 	template <typename Arg1>
-	auto print(const char *name, Arg1 &&arg1) -> void
+	void print(const char *name, Arg1 &&arg1)
 	{
 		if (!debug)
 			return;
@@ -118,7 +122,7 @@ namespace ios
 	}
 
 	template <typename Arg1, typename... Args>
-	auto print(const char *names, Arg1 &&arg1, Args &&...args) -> void
+	void print(const char *names, Arg1 &&arg1, Args &&...args)
 	{
 		if (!debug)
 			return;
