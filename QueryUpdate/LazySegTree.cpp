@@ -96,16 +96,16 @@ private:
 	}
 
 public:
-	LazysegTree(int sz, T ini, T neutral, F lazyE)
+	LazysegTree(int sz, T ini, T _neutral, F _lazyE)
 	{
 		this->n = sz + 1;
-		this->neutral = neutral;
-		this->lazyE = lazyE;
+		this->neutral = _neutral;
+		this->lazyE = _lazyE;
 		segT.resize(n * 4 + 5, ini);
-		lazy.resize(n * 4 + 5, lazyE);
+		lazy.resize(n * 4 + 5, _lazyE);
 	}
 
-	LazysegTree(vector<T> &arr, T ini, T neutral, F lazyE) : LazysegTree(arr.size(), ini, neutral, lazyE)
+	LazysegTree(vector<T> &arr, T ini, T _neutral, F _lazyE) : LazysegTree(arr.size(), ini, _neutral, _lazyE)
 	{
 		init(arr);
 	}
@@ -146,39 +146,32 @@ int lazyToLazy(int lazyV, int v)
 int main()
 {
 
-	int t, ts = 0;
-	cin >> t;
-
 	LazysegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 1, 5);
 
-	while (t--)
-	{
-		cout << "Case " << ++ts << ":" << endl;
-		string s;
-		cin >> s;
+	string s;
+	cin >> s;
 
-		vector<int> a(s.size(), 0);
-		for (int i = 0; i < (int)s.size(); i++)
-			if (s[i] != '0')
-				a[i] = 1;
-		tree.init(a);
-		int q;
-		cin >> q;
-		while (q--)
+	vector<int> a(s.size(), 0);
+	for (int i = 0; i < (int)s.size(); i++)
+		if (s[i] != '0')
+			a[i] = 1;
+	tree.init(a);
+	int q;
+	cin >> q;
+	while (q--)
+	{
+		char c;
+		cin >> c;
+		int i, j;
+		if (c == 'I')
 		{
-			char c;
-			cin >> c;
-			int i, j;
-			if (c == 'I')
-			{
-				cin >> i >> j, i--, j--;
-				tree.set(i, j, 1);
-			}
-			else
-			{
-				cin >> i, i--;
-				cout << (tree.get(i, i) % 2) << endl;
-			}
+			cin >> i >> j, i--, j--;
+			tree.set(i, j, 1);
+		}
+		else
+		{
+			cin >> i, i--;
+			cout << (tree.get(i, i) % 2) << endl;
 		}
 	}
 

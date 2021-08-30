@@ -105,14 +105,14 @@ private:
 	}
 
 public:
-	SegTree(int sz, T e)
+	SegTree(int sz, T _e)
 	{
-		this->e = e;
-		a.resize(sz + 5, e);
-		segt.resize(sz * 4 + 5, e);
+		this->e = _e;
+		a.resize(sz + 5, _e);
+		segt.resize(sz * 4 + 5, _e);
 	}
 
-	SegTree(vector<T> &arr, T e) : SegTree(arr.size(), e)
+	SegTree(vector<T> &arr, T _e) : SegTree(arr.size(), _e)
 	{
 		init(arr);
 	}
@@ -146,10 +146,6 @@ int a[N + 5];
 
 int segt[N * 4 + 5];
 
-void build(int ss, int se, int si)
-{
-	for(int i = 0; i <= se; i++) update(ss,se,i,1);
-}
 
 int query(int ss, int se, int qs, int qe, int si)
 {
@@ -183,6 +179,11 @@ void update(int ss, int se, int key, int si)
 	segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
 }
 
+void build(int ss, int se)
+{
+	for(int i = 0; i <= se; i++) update(ss,se,i,1);
+}
+
 int op(int a, int b)
 {
 	return min(a, b);
@@ -199,20 +200,19 @@ int main()
 
 	// After filling array
 	int n = 4; // array size
-	build(0, n - 1, 1);
+	build(0, n - 1);
 	int i = 0, j = 0;
-	const int z = 5;
 	// for each query for index[i,j]
 	query(0, n - 1, i, j, 1);
 
-	vector<int> a = {4, 5, 6};
+	vector<int> b = {4, 5, 6};
 
 	SegTree<int, op> minTree(1e5, INT_MAX);
-	minTree.init(a);
+	minTree.init(b);
 
-	cout << minTree.get(0, a.size() - 1) << endl;
+	cout << minTree.get(0, b.size() - 1) << endl;
 
 	minTree.set(2, 3);
-	cout << minTree.get(0, a.size() - 1) << " " << a[2] << endl;
+	cout << minTree.get(0, b.size() - 1) << " " << b[2] << endl;
 	return 0;
 }

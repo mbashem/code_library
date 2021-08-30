@@ -25,12 +25,12 @@ private:
 	T e;
 
 public:
-	RMQ(int n)
+	RMQ(int _n)
 	{
+		this->n = _n;
 		int bit = 0;
 		while ((1 << bit) <= n)
 			bit++;
-		this->n = n;
 		this->lg = bit;
 
 		st.resize(n, vector<T>(lg));
