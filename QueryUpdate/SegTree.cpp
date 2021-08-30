@@ -108,8 +108,9 @@ public:
 	SegTree(int sz, T _e)
 	{
 		this->e = _e;
-		a.resize(sz + 5, _e);
-		segt.resize(sz * 4 + 5, _e);
+		this->n = sz+1;
+		a.resize(n + 5, _e);
+		segt.resize(n * 4 + 5, _e);
 	}
 
 	SegTree(vector<T> &arr, T _e) : SegTree(arr.size(), _e)
