@@ -23,42 +23,32 @@ typedef pair<ll, ll> pll;
 
 // T=>Data Type , e => return if query out of range
 
-/*
+/*  range minimum 
+
 	int op(int a, int b)
 	{
 		return min(a, b);
 	}
 
-	int e(){
-		return INT_MAX;
-	}
-
- range minimum SegTree<int, op> minTree(1e5,INT_MAX);
+	SegTree<int, op> minTree(1e5,INT_MAX);
 */
-/* 
+
+/* range maximum
 	int op(int a, int b)
 	{
 		return max(a, b);
 	}
 
-	int e(){
-		return INT_MIN;
-	}
-
-	range maximum SegTree<int, op> maxTree(1e5,INT_MIN)
+	SegTree<int, op> maxTree(1e5,INT_MIN)
 */
 
-/* 
+/* range sum 
 	int op(int a, int b)
 	{
 		return a + b;
 	}
 
-	int e(){
-		return 0;
-	}
-
-	range rum SegTree<int, op> sumTree(1e5,0)
+	SegTree<int, op> sumTree(1e5,0)
 */
 
 template <typename T, T (*op)(T, T)>
@@ -137,6 +127,11 @@ public:
 	}
 };
 
+int op(int a, int b)
+{
+	return min(a, b);
+}
+
 /* 
 	@Function version used before
 */
@@ -185,15 +180,7 @@ void build(int ss, int se)
 	for(int i = 0; i <= se; i++) update(ss,se,i,1);
 }
 
-int op(int a, int b)
-{
-	return min(a, b);
-}
 
-int e()
-{
-	return INT_MAX;
-}
 
 int main()
 {
