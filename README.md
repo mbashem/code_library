@@ -18,7 +18,7 @@
 ### Number Theory
 * [Combinatrics (ncr,ncp)](./NumberTheory/Combinatrics.cpp)
 * [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
-* [PrimePhiSieve (ncr,ncp)](./NumberTheory/PrimePhiSieve.cpp)
+* [PrimePhiSieve](./NumberTheory/PrimePhiSieve.cpp)
 
 * Extend Eculid (Todo)
 * ModInt (Todo)
