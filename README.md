@@ -6,15 +6,6 @@
 * [Template](./General/greatestTemplate.cpp)
 * [IO template](./General/IO.cpp)
 
-### Graph
-* [DFS](./Graph/dfs.cpp)
-* [DSU](./Graph/DSU.cpp)
-* [LCA](./Graph/LCA.cpp)
-
-### Hashing
-* [Hashing](./Hashing/Hashing.cpp)
-* [Unordered Map](./Hashing/UnorderedMap.cpp)
-
 ### Number Theory
 * [Combinatrics (ncr,ncp)](./NumberTheory/Combinatrics.cpp)
 * [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
@@ -31,4 +22,15 @@
 * [MOS Algorithm](./QueryUpdate/MosAlgo.cpp)
 * [BIT](./QueryUpdate/BIT.cpp)
 
+### Graph
+* [DFS](./Graph/dfs.cpp)
+* [DSU](./Graph/DSU.cpp)
+* [LCA](./Graph/LCA.cpp)
+
+### Concepts
+* [Tree Rooting](./concepts/graph/treerooting.cpp)
+
+### Hashing
+* [Hashing](./Hashing/Hashing.cpp)
+* [Unordered Map](./Hashing/UnorderedMap.cpp)
 
