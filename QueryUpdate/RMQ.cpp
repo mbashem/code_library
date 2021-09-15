@@ -1,16 +1,6 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-
-typedef long long ll;
-typedef pair<int,int> pii;
-typedef pair<ll,ll> pll;
-
-#define faster ios_base::sync_with_stdio(false), cin.tie(0)
-#define read freopen("in.txt","r",stdin)
-#define write freopen("out.txt","w",stdout)
-#define var(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
-#define mem(x,n) memset(x,n,sizeof(x))
+#define mem(x, n) memset(x, n, sizeof(x))
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
@@ -19,9 +9,9 @@ template <typename T, T (*op)(T, T)>
 struct RMQ
 {
 private:
-	vector<vector<T>> st;
+	std::vector<std::vector<T>> st;
 	int n, lg;
-	vector<int> logs;
+	std::vector<int> logs;
 	T e;
 
 public:
@@ -33,7 +23,7 @@ public:
 			bit++;
 		this->lg = bit;
 
-		st.resize(n, vector<T>(lg));
+		st.resize(n, std::vector<T>(lg));
 		logs.resize(n + 1, 0);
 		logs[1] = 0;
 		for (int i = 2; i <= n; i++)
@@ -42,12 +32,12 @@ public:
 		}
 	}
 
-	RMQ(vector<T> &a) : RMQ(a.size())
+	RMQ(std::vector<T> &a) : RMQ(a.size())
 	{
 		init(a);
 	}
 
-	void init(vector<T> &a)
+	void init(std::vector<T> &a)
 	{
 		this->n = a.size();
 
@@ -60,7 +50,7 @@ public:
 		{
 			for (int i = 0; i + (1 << j) <= n; i++)
 			{
-				st[i][j] = op(st[i][j - 1], st[min(i + (1 << (j - 1)),n-1)][j - 1]);
+				st[i][j] = op(st[i][j - 1], st[min(i + (1 << (j - 1)), n - 1)][j - 1]);
 			}
 		}
 	}
@@ -78,14 +68,13 @@ int op(int a, int b)
 		return b;
 	if (b == -1)
 		return a;
-	return gcd(a, b);
+	return std::gcd(a, b);
 }
-
 
 auto main() -> int
 {
 
-	RMQ<int,op> rmq(5);
-	
+	RMQ<int, op> rmq(5);
+
 	return 0;
 }

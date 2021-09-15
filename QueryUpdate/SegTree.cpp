@@ -1,61 +1,14 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-
-#define faster ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0)
-#define read freopen("in.txt", "r", stdin)
-#define write freopen("out.txt", "w", stdout)
 #define mem(x, n) memset(x, n, sizeof(x))
 #define all(x) x.begin(), x.end()
 #define endl "\n"
-/*
-	1.Class Version of Segment Tree
-	2.Function Version of Segment Tree
-*/
-
-/* 
-	@Class Version May need Debuging Never Used Before
-*/
-
-// T=>Data Type , e => return if query out of range
-
-/*  range minimum 
-
-	int op(int a, int b)
-	{
-		return min(a, b);
-	}
-
-	SegTree<int, op> minTree(1e5,INT_MAX);
-*/
-
-/* range maximum
-	int op(int a, int b)
-	{
-		return max(a, b);
-	}
-
-	SegTree<int, op> maxTree(1e5,INT_MIN)
-*/
-
-/* range sum 
-	int op(int a, int b)
-	{
-		return a + b;
-	}
-
-	SegTree<int, op> sumTree(1e5,0)
-*/
 
 template <typename T, T (*op)(T, T)>
 struct SegTree
 {
 private:
-	vector<T> segt, a;
+	std::vector<T> segt, a;
 	int n;
 	T e;
 
@@ -98,17 +51,17 @@ public:
 	SegTree(int sz, T _e)
 	{
 		this->e = _e;
-		this->n = sz+1;
+		this->n = sz + 1;
 		a.resize(n + 5, _e);
 		segt.resize(n * 4 + 5, _e);
 	}
 
-	SegTree(vector<T> &arr, T _e) : SegTree(arr.size(), _e)
+	SegTree(std::vector<T> &arr, T _e) : SegTree(arr.size(), _e)
 	{
 		init(arr);
 	}
 
-	void init(vector<T> &arr)
+	void init(std::vector<T> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
@@ -129,78 +82,63 @@ public:
 
 int op(int a, int b)
 {
-	return min(a, b);
+	return std::min(a, b);
 }
+
+/*
+	1.Class Version of Segment Tree
+	2.Function Version of Segment Tree
+*/
+
+/* 
+	@Class Version May need Debuging Never Used Before
+*/
+
+// T=>Data Type , e => return if query out of range
+
+/*  range minimum 
+
+	int op(int a, int b)
+	{
+		return min(a, b);
+	}
+
+	SegTree<int, op> minTree(1e5,INT_MAX);
+*/
+
+/* range maximum
+	int op(int a, int b)
+	{
+		return max(a, b);
+	}
+
+	SegTree<int, op> maxTree(1e5,INT_MIN)
+*/
+
+/* range sum 
+	int op(int a, int b)
+	{
+		return a + b;
+	}
+
+	SegTree<int, op> sumTree(1e5,0)
+*/
 
 /* 
 	@Function version used before
 */
 
-const int N = 3e5;
-
-int a[N + 5];
-
-int segt[N * 4 + 5];
-
-
-int query(int ss, int se, int qs, int qe, int si)
-{
-	//	cout << ss << " " << se << " " << qs << " " << qe << " " << si << endl;
-	if (se < qs || qe < ss)
-		return INT_MAX;
-
-	if (qs <= ss && qe >= se)
-		return segt[si];
-
-	int mid = ss + (se - ss) / 2;
-
-	return min(query(ss, mid, qs, qe, si * 2), query(mid + 1, se, qs, qe, si * 2 + 1));
-}
-
-void update(int ss, int se, int key, int si)
-{
-	if (ss == se)
-	{
-		segt[si] = a[ss];
-		return;
-	}
-
-	int mid = ss + (se - ss) / 2;
-
-	if (key > mid)
-		update(mid + 1, se, key, si * 2 + 1);
-	else
-		update(ss, mid, key, si * 2);
-
-	segt[si] = min(segt[si * 2], segt[si * 2 + 1]);
-}
-
-void build(int ss, int se)
-{
-	for(int i = 0; i <= se; i++) update(ss,se,i,1);
-}
-
-
-
 int main()
 {
-	faster;
-
 	// After filling array
-	int n = 4; // array size
-	build(0, n - 1);
-	int i = 0, j = 0;
-	// for each query for index[i,j]
-	query(0, n - 1, i, j, 1);
-
-	vector<int> b = {4, 5, 6};
+	std::vector<int> b = {4, 5, 6};
 
 	SegTree<int, op> minTree(1e5, INT_MAX);
 	minTree.init(b);
 
-	cout << minTree.get(0, b.size() - 1) << endl;
+	std::cout << minTree.get(0, b.size() - 1) << endl;
 
 	minTree.set(2, 3);
-	cout << minTree.get(0, b.size() - 1) << " " << b[2] << endl;
+	std::cout << minTree.get(0, b.size() - 1) << " " << b[2] << endl;
 	return 0;
 }

@@ -1,14 +1,5 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-
-#define faster ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0)
-#define read freopen("in.txt", "r", stdin)
-#define write freopen("out.txt", "w", stdout)
 #define mem(x, n) memset(x, n, sizeof(x))
 #define all(x) x.begin(), x.end()
 #define endl "\n"
@@ -17,8 +8,8 @@ template <typename T, typename F, T (*op)(T, T), F (*lazyToLazy)(F, F), T (*lazy
 struct LazysegTree
 {
 private:
-	vector<T> segT;
-	vector<F> lazy;
+	std::vector<T> segT;
+	std::vector<F> lazy;
 	int n;
 	T neutral;
 	F lazyE;
@@ -105,12 +96,12 @@ public:
 		lazy.resize(n * 4 + 5, _lazyE);
 	}
 
-	LazysegTree(vector<T> &arr, T ini, T _neutral, F _lazyE) : LazysegTree(arr.size(), ini, _neutral, _lazyE)
+	LazysegTree(std::vector<T> &arr, T ini, T _neutral, F _lazyE) : LazysegTree(arr.size(), ini, _neutral, _lazyE)
 	{
 		init(arr);
 	}
 
-	void init(vector<T> &arr)
+	void init(std::vector<T> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
@@ -148,30 +139,30 @@ int main()
 
 	LazysegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 1, 5);
 
-	string s;
-	cin >> s;
+	std::string s;
+	std::cin >> s;
 
-	vector<int> a(s.size(), 0);
+	std::vector<int> a(s.size(), 0);
 	for (int i = 0; i < (int)s.size(); i++)
 		if (s[i] != '0')
 			a[i] = 1;
 	tree.init(a);
 	int q;
-	cin >> q;
+	std::cin >> q;
 	while (q--)
 	{
 		char c;
-		cin >> c;
+		std::cin >> c;
 		int i, j;
 		if (c == 'I')
 		{
-			cin >> i >> j, i--, j--;
+			std::cin >> i >> j, i--, j--;
 			tree.set(i, j, 1);
 		}
 		else
 		{
-			cin >> i, i--;
-			cout << (tree.get(i, i) % 2) << endl;
+			std::cin >> i, i--;
+			std::cout << (tree.get(i, i) % 2) << endl;
 		}
 	}
 
