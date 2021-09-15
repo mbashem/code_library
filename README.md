@@ -2,33 +2,33 @@
 
 ### General
 
-* [GNU Data Structures (PB Tree)](./general/GNUDS.cpp)
-* [Template](./general/greatestTemplate.cpp)
-* [IO template](./general/IO.cpp)
+* [GNU Data Structures (PB Tree)](./General/GNUDS.cpp)
+* [Template](./General/greatestTemplate.cpp)
+* [IO template](./General/IO.cpp)
 
 ### Graph
-* [DFS](./graph/dfs.cpp)
-* [DSU](./graph/dsu.cpp)
-* [LCA](./lca/lca.cpp)
+* [DFS](./Graph/dfs.cpp)
+* [DSU](./Graph/DSU.cpp)
+* [LCA](./Graph/LCA.cpp)
 
 ### Hashing
-* [Hashing](./hashing/hashing.cpp)
-* [Unordered Map](./hashing/unorderedmap.cpp)
+* [Hashing](./Hashing/Hashing.cpp)
+* [Unordered Map](./Hashing/UnorderedMap.cpp)
 
 ### Number Theory
-* [Combinatrics (ncr,ncp)](./numbertheory/combinatrics.cpp)
-* [PrimeSieve](./numbertheory/primesieve.cpp)
-* [PrimePhiSieve (ncr,ncp)](./numbertheory/primephisieve.cpp)
+* [Combinatrics (ncr,ncp)](./NumberTheory/Combinatrics.cpp)
+* [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
+* [PrimePhiSieve (ncr,ncp)](./NumberTheory/PrimePhiSieve.cpp)
 
 * Extend Eculid (Todo)
 * ModInt (Todo)
 
 ### Query Update
 
-* [SegTree](./queryupdate/SegTree.cpp)
-* [LazySegTree](./queryupdate/LazySegTree.cpp)
-* [RMQ](./queryupdate/RMQ.cpp)
-* [MOS Algorithm](./queryupdate/MosAlgo.cpp)
-* [BIT](./queryupdate/BIT.cpp)
+* [SegTree](./QueryUpdate/SegTree.cpp)
+* [LazySegTree](./QueryUpdate/LazySegTree.cpp)
+* [RMQ](./QueryUpdate/RMQ.cpp)
+* [MOS Algorithm](./QueryUpdate/MosAlgo.cpp)
+* [BIT](./QueryUpdate/BIT.cpp)
 
 
