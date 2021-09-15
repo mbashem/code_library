@@ -23,7 +23,7 @@
 * [BIT](./QueryUpdate/BIT.cpp)
 
 ### Graph
-* [DFS](./Graph/dfs.cpp)
+* [DFS](./Graph/DFS.cpp)
 * [DSU](./Graph/DSU.cpp)
 * [LCA](./Graph/LCA.cpp)
 
