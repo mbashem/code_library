@@ -7,7 +7,7 @@
 * [IO template](./General/IO.cpp)
 
 ### Number Theory
-* [Combinatrics (ncr,ncp)](./NumberTheory/Combinatrics.cpp)
+* [Combinatrics](./NumberTheory/Combinatrics.cpp)
 * [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
 * [PrimePhiSieve](./NumberTheory/PrimePhiSieve.cpp)
 
