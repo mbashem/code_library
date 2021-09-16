@@ -21,6 +21,8 @@ struct Combinatrics
 	vector<ll> fact, factInv, inv;
 	ll mod, nl;
 
+	Combinatrics() {}
+
 	Combinatrics(ll n, ll mod)
 	{
 		this->nl = n;
@@ -62,7 +64,7 @@ struct Combinatrics
 		return (fact[n] * 1LL * factInv[n - r]) % mod;
 	}
 
-	ll bigMod(ll a, ll p, ll m)
+	ll bigMod(ll a, ll p, ll m = MOD)
 	{
 		ll res = 1 % m, x = a % m;
 		while (p > 0)

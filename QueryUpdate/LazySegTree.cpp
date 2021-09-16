@@ -87,6 +87,8 @@ private:
 	}
 
 public:
+	LazysegTree() : n(0) {}
+
 	LazysegTree(int sz, T ini, T _neutral, F _lazyE)
 	{
 		this->n = sz + 1;

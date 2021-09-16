@@ -21,6 +21,8 @@ private:
 	vector<bool> isPrime;
 
 public:
+	PrimePhiSieve() {}
+	
 	PrimePhiSieve(ll n)
 	{
 		this->n = n, isPrime.resize(n + 5, true), phi.resize(n + 5, 1);

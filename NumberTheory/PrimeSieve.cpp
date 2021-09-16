@@ -20,6 +20,8 @@ public:
 	vector<bool> isprime;
 	int n;
 
+	PrimeSieve() {}
+	
 	PrimeSieve(int n)
 	{
 		this->n = n, isprime.resize(n + 5, true), primes.clear();

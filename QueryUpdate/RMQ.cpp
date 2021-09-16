@@ -15,6 +15,8 @@ private:
 	T e;
 
 public:
+	RMQ() : n(0) {}
+
 	RMQ(int _n)
 	{
 		this->n = _n;
@@ -50,7 +52,7 @@ public:
 		{
 			for (int i = 0; i + (1 << j) <= n; i++)
 			{
-				st[i][j] = op(st[i][j - 1], st[min(i + (1 << (j - 1)), n - 1)][j - 1]);
+				st[i][j] = op(st[i][j - 1], st[std::min(i + (1 << (j - 1)), n - 1)][j - 1]);
 			}
 		}
 	}

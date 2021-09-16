@@ -48,6 +48,8 @@ private:
 	}
 
 public:
+	SegTree() : n(0) {}
+
 	SegTree(int sz, T _e)
 	{
 		this->e = _e;
@@ -133,6 +135,8 @@ int main()
 	// After filling array
 	std::vector<int> b = {4, 5, 6};
 
+	SegTree<int, op> sg;
+
 	SegTree<int, op> minTree(1e5, INT_MAX);
 	minTree.init(b);
 
@@ -140,5 +144,8 @@ int main()
 
 	minTree.set(2, 3);
 	std::cout << minTree.get(0, b.size() - 1) << " " << b[2] << endl;
+	sg = minTree;
+	std::cout << sg.get(0, b.size() - 1) << " " << b[2] << endl;
+
 	return 0;
 }
