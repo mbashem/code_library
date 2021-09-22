@@ -64,8 +64,9 @@ struct Combinatrics
 		return (fact[n] * 1LL * factInv[n - r]) % mod;
 	}
 
-	ll bigMod(ll a, ll p, ll m = MOD)
+	ll bigMod(ll a, ll p, ll m = -1)
 	{
+		m = (m == -1 ? mod : m);
 		ll res = 1 % m, x = a % m;
 		while (p > 0)
 		{
