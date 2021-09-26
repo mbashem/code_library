@@ -56,7 +56,7 @@ public:
 	void clear(int n_ = -1)
 	{
 		if (n_ == -1)
-			n_ = sz(g) - 1;
+			n_ = ((int)(g.size())) - 1;
 
 		for (int i = 0; i <= n_; i++)
 		{
