@@ -1,9 +1,5 @@
 #include <bits/stdc++.h>
 
-#define mem(x, n) memset(x, n, sizeof(x))
-#define all(x) x.begin(), x.end()
-#define endl "\n"
-
 template <typename T, T (*op)(T, T)>
 struct SegTree
 {
@@ -140,12 +136,12 @@ int main()
 	SegTree<int, op> minTree(1e5, INT_MAX);
 	minTree.init(b);
 
-	std::cout << minTree.get(0, b.size() - 1) << endl;
+	std::cout << minTree.get(0, b.size() - 1) << std::endl;
 
 	minTree.set(2, 3);
-	std::cout << minTree.get(0, b.size() - 1) << " " << b[2] << endl;
+	std::cout << minTree.get(0, b.size() - 1) << " " << b[2] << std::endl;
 	sg = minTree;
-	std::cout << sg.get(0, b.size() - 1) << " " << b[2] << endl;
+	std::cout << sg.get(0, b.size() - 1) << " " << b[2] << std::endl;
 
 	return 0;
 }

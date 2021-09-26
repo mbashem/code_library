@@ -1,9 +1,5 @@
 #include <bits/stdc++.h>
 
-#define mem(x, n) memset(x, n, sizeof(x))
-#define all(x) x.begin(), x.end()
-#define endl "\n"
-
 template <typename T, typename F, T (*op)(T, T), F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
 struct LazysegTree
 {
@@ -164,7 +160,7 @@ int main()
 		else
 		{
 			std::cin >> i, i--;
-			std::cout << (tree.get(i, i) % 2) << endl;
+			std::cout << (tree.get(i, i) % 2) << std::endl;
 		}
 	}
 

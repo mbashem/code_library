@@ -1,11 +1,5 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-
-#define mem(x, n) memset(x, n, sizeof(x))
-#define all(x) x.begin(), x.end()
-#define endl "\n"
-
 /*
 	@two version available here
 	1.Class
@@ -55,7 +49,7 @@ public:
 			return false;
 
 		if (csz[x] > csz[y])
-			swap(x, y);
+			std::swap(x, y);
 
 		p[x] = y;
 		csz[y] += csz[x];

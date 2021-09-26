@@ -1,85 +1,119 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-
-#define faster ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0)
-#define read freopen("in.txt", "r", stdin)
-#define write freopen("out.txt", "w", stdout)
-#define var(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
-#define mem(x, n) memset(x, n, sizeof(x))
-#define all(x) x.begin(), x.end()
-#define endl "\n"
-
 // For more:https://cp-algorithms.com/graph/lca.html
 
-// Draft version
-const int MAX_N = 1e5 + 5, LOG = 20;
+// tested by AC
+// https://www.facebook.com/codingcompetitions/hacker-cup/2021/round-2/problems/B/my-submissions
 
-int up[MAX_N][LOG];
-int depth[MAX_N], euler[MAX_N * 2], timer = 0;
-
-vector<int> g[MAX_N];
-
-void dfs(int curr, int p)
+struct LCA
 {
-	euler[++timer] = curr;
-	for (int next : g[curr])
+private:
+	int n, lg, timer;
+	std::vector<int> depth, euler;
+	std::vector<std::vector<int>> up;
+	std::vector<std::vector<int>> g;
+
+	void dfs_(int curr, int p)
 	{
-		if (next == p)
-			continue;
-		depth[next] = depth[curr] + 1;
-		up[next][0] = curr;
-		for (int j = 1; j < LOG; j++)
-			up[next][j] = up[up[next][j - 1]][j - 1];
-		dfs(next, curr);
 		euler[++timer] = curr;
-	}
-}
-
-int getLCA(int a, int b)
-{
-	if (depth[a] < depth[b])
-		swap(a, b);
-
-	int k = depth[a] - depth[b];
-	for (int j = LOG - 1; j >= 0; j--)
-	{
-		if (k & (1 << j))
-			a = up[a][j];
-	}
-
-	if (a == b)
-		return a;
-
-	for (int j = LOG - 1; j >= 0; j--)
-		if (up[a][j] != up[b][j])
+		up[curr][0] = p;
+		for (int next : g[curr])
 		{
-			a = up[a][j];
-			b = up[b][j];
+			if (next == p)
+				continue;
+			depth[next] = depth[curr] + 1;
+			up[next][0] = curr;
+			for (int j = 1; j < lg; j++)
+				up[next][j] = up[up[next][j - 1]][j - 1];
+			dfs(next, curr);
+			euler[++timer] = curr;
+		}
+	}
+
+public:
+	LCA() : n(0), lg(0) {}
+
+	LCA(int _n)
+	{
+		this->n = _n;
+		timer = 0;
+		lg = log2(n) + 2;
+		depth.resize(n + 5, 0), euler.resize(n * 2 + 5, 0);
+		up.resize(n + 5, std::vector<int>(lg, 0));
+		g.resize(n + 1);
+	}
+
+	LCA(std::vector<std::vector<int>> &graph) : LCA(graph.size())
+	{
+		for (int i = 0; i < (int)graph.size(); i++)
+			g[i] = graph[i];
+
+		dfs(1, 0);
+	}
+
+	void dfs(int curr, int p)
+	{
+		timer = 0;
+		dfs_(curr, p);
+	}
+
+	void add(int a, int b)
+	{
+		g[a].push_back(b);
+	}
+
+	void clear(int a)
+	{
+		g[a].clear();
+	}
+
+	void clear()
+	{
+		for (auto &x : g)
+		{
+			x.clear();
+		}
+	}
+
+	int par(int a)
+	{
+		return up[a][0];
+	}
+
+	int getLCA(int a, int b)
+	{
+		if (depth[a] < depth[b])
+			std::swap(a, b);
+
+		int k = depth[a] - depth[b];
+		for (int j = lg - 1; j >= 0; j--)
+		{
+			if (k & (1 << j))
+				a = up[a][j];
 		}
 
-	return up[a][0];
-}
+		if (a == b)
+			return a;
 
-int getDist(int a, int b)
-{
-	return depth[a] + depth[b] - 2 * depth[getLCA(a, b)];
-}
+		for (int j = lg - 1; j >= 0; j--)
+			if (up[a][j] != up[b][j])
+			{
+				a = up[a][j];
+				b = up[b][j];
+			}
+
+		return up[a][0];
+	}
+
+	int getDist(int a, int b)
+	{
+		return depth[a] + depth[b] - 2 * depth[getLCA(a, b)];
+	}
+};
 
 int main()
 {
-	faster;
-
-	int t;
-	cin >> t;
-
-	while (t--)
-	{
-	}
+	
 
 	return 0;
 }

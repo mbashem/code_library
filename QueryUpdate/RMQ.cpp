@@ -1,9 +1,5 @@
 #include <bits/stdc++.h>
 
-#define mem(x, n) memset(x, n, sizeof(x))
-#define all(x) x.begin(), x.end()
-#define endl "\n"
-
 // DRAFT RMQ
 template <typename T, T (*op)(T, T)>
 struct RMQ

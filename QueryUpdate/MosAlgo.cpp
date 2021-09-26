@@ -28,12 +28,13 @@ struct Query
 	}
 };
 
-int a[N], freq[int(1e6 + 5)], res[int(2e5) + 5];
-
-vector<int> mosAlgorithm(vector<Query> &queries)
+vector<int> mosAlgorithm(vector<Query> &queries, vector<int> &a)
 {
 	vector<int> answers(queries.size());
 	sort(queries.begin(), queries.end());
+
+	int sza = 1e6 + 5;
+	vector<int> freq(sza);
 
 	int cnt = 0;
 
@@ -87,6 +88,7 @@ int main()
 	int n;
 	cin >> n;
 
+	vector<int> a(n);
 	for (int i = 0; i < n; i++)
 		cin >> a[i];
 
@@ -104,7 +106,7 @@ int main()
 		qr[i].l = l, qr[i].r = r, qr[i].i = i;
 	}
 
-	vector<int> res = mosAlgorithm(qr);
+	vector<int> res = mosAlgorithm(qr, a);
 
 	for (int i = 0; i < q; i++)
 		cout << res[i] << endl;
