@@ -48,16 +48,19 @@ public:
 		}
 	}
 
-	void clear(int a)
+	void clearV(int a)
 	{
 		g[a].clear();
 	}
 
-	void clear()
+	void clear(int n_ = -1)
 	{
-		for (auto &x : g)
+		if (n_ == -1)
+			n_ = sz(g) - 1;
+
+		for (int i = 0; i <= n_; i++)
 		{
-			x.clear();
+			g[i].clear();
 		}
 	}
 
