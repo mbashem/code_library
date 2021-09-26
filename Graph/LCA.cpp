@@ -13,21 +13,6 @@ private:
 	std::vector<std::vector<int>> up;
 	std::vector<std::vector<int>> g;
 
-	void dfs_(int curr, int p)
-	{
-		up[curr][0] = p;
-		for (int next : g[curr])
-		{
-			if (next == p)
-				continue;
-			depth[next] = depth[curr] + 1;
-			up[next][0] = curr;
-			for (int j = 1; j < lg; j++)
-				up[next][j] = up[up[next][j - 1]][j - 1];
-			dfs(next, curr);
-		}
-	}
-
 public:
 	LCA() : n(0), lg(0) {}
 
@@ -50,9 +35,19 @@ public:
 
 	void dfs(int curr, int p)
 	{
-		dfs_(curr, p);
+		up[curr][0] = p;
+		for (int next : g[curr])
+		{
+			if (next == p)
+				continue;
+			depth[next] = depth[curr] + 1;
+			up[next][0] = curr;
+			for (int j = 1; j < lg; j++)
+				up[next][j] = up[up[next][j - 1]][j - 1];
+			dfs(next, curr);
+		}
 	}
-	
+
 	void clear(int a)
 	{
 		g[a].clear();
@@ -70,7 +65,6 @@ public:
 	{
 		g[a].push_back(b);
 	}
-
 
 	int par(int a)
 	{
@@ -110,7 +104,6 @@ public:
 
 int main()
 {
-	
 
 	return 0;
 }
