@@ -8,14 +8,13 @@
 struct LCA
 {
 private:
-	int n, lg, timer;
-	std::vector<int> depth, euler;
+	int n, lg;
+	std::vector<int> depth;
 	std::vector<std::vector<int>> up;
 	std::vector<std::vector<int>> g;
 
 	void dfs_(int curr, int p)
 	{
-		euler[++timer] = curr;
 		up[curr][0] = p;
 		for (int next : g[curr])
 		{
@@ -26,7 +25,6 @@ private:
 			for (int j = 1; j < lg; j++)
 				up[next][j] = up[up[next][j - 1]][j - 1];
 			dfs(next, curr);
-			euler[++timer] = curr;
 		}
 	}
 
@@ -36,9 +34,8 @@ public:
 	LCA(int _n)
 	{
 		this->n = _n;
-		timer = 0;
 		lg = log2(n) + 2;
-		depth.resize(n + 5, 0), euler.resize(n * 2 + 5, 0);
+		depth.resize(n + 5, 0);
 		up.resize(n + 5, std::vector<int>(lg, 0));
 		g.resize(n + 1);
 	}
@@ -53,15 +50,9 @@ public:
 
 	void dfs(int curr, int p)
 	{
-		timer = 0;
 		dfs_(curr, p);
 	}
-
-	void add(int a, int b)
-	{
-		g[a].push_back(b);
-	}
-
+	
 	void clear(int a)
 	{
 		g[a].clear();
@@ -74,6 +65,12 @@ public:
 			x.clear();
 		}
 	}
+
+	void add(int a, int b)
+	{
+		g[a].push_back(b);
+	}
+
 
 	int par(int a)
 	{
