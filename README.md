@@ -10,8 +10,8 @@
 - [x] [Combinatrics](./NumberTheory/Combinatrics.cpp)
 - [x] [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
 - [x] [PrimePhiSieve](./NumberTheory/PrimePhiSieve.cpp)
-- [ ] Extend Eculid (Todo)
-- [ ] ModInt (Todo)
+- [ ] ModInt
+- [ ] Extend Eculid
 
 ### [Query Update](./QueryUpdate)
 
