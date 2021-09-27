@@ -1,36 +1,36 @@
 # Code Snippets
 
-### General
+### [General](./General)
 
-* [GNU Data Structures (PB Tree)](./General/GNUDS.cpp)
-* [Template](./General/greatestTemplate.cpp)
-* [IO template](./General/IO.cpp)
+- [x] [GNU Data Structures (PB Tree)](./General/GNUDS.cpp)
+- [x] [Template](./General/GreatestTemplate.cpp)
+- [x] [IO template](./General/IO.cpp)
 
-### Number Theory
-* [Combinatrics](./NumberTheory/Combinatrics.cpp)
-* [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
-* [PrimePhiSieve](./NumberTheory/PrimePhiSieve.cpp)
+### [Number Theory](./NumberTheory)
+- [x] [Combinatrics](./NumberTheory/Combinatrics.cpp)
+- [x] [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
+- [x] [PrimePhiSieve](./NumberTheory/PrimePhiSieve.cpp)
+- [ ] Extend Eculid (Todo)
+- [ ] ModInt (Todo)
 
-* Extend Eculid (Todo)
-* ModInt (Todo)
+### [Query Update](./QueryUpdate)
 
-### Query Update
+- [x] [SegTree](./QueryUpdate/SegTree.cpp)
+- [x] [LazySegTree](./QueryUpdate/LazySegTree.cpp)
+- [x] [RMQ](./QueryUpdate/RMQ.cpp)
+- [x] [MOS Algorithm](./QueryUpdate/MosAlgo.cpp)
+- [x] [BIT](./QueryUpdate/BIT.cpp)
 
-* [SegTree](./QueryUpdate/SegTree.cpp)
-* [LazySegTree](./QueryUpdate/LazySegTree.cpp)
-* [RMQ](./QueryUpdate/RMQ.cpp)
-* [MOS Algorithm](./QueryUpdate/MosAlgo.cpp)
-* [BIT](./QueryUpdate/BIT.cpp)
+### [Graph](./Graph)
+- [x] [DFS](./Graph/DFS.cpp)
+- [x] [DSU](./Graph/DSU.cpp)
+- [x] [LCA](./Graph/LCA.cpp)
 
-### Graph
-* [DFS](./Graph/DFS.cpp)
-* [DSU](./Graph/DSU.cpp)
-* [LCA](./Graph/LCA.cpp)
+### [Hashing](./Hashing)
+- [x] [Hashing](./Hashing/Hashing.cpp)
+- [x] [Unordered Map](./Hashing/UnorderedMap.cpp)
 
-### Concepts
-* [Tree Rooting](./concepts/graph/treerooting.cpp)
-
-### Hashing
-* [Hashing](./Hashing/Hashing.cpp)
-* [Unordered Map](./Hashing/UnorderedMap.cpp)
+### [Concepts](./Concepts)
+#### [Graph](./Graph)
+- [x] [Tree Rooting](./Concepts/Graph/treerooting.cpp)
 
