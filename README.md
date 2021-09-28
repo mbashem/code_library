@@ -1,4 +1,5 @@
-# Code Snippets
+# Code Snippets (Rust Version) 
+#### [cpp version](../cpp) 
 
 ### [General](./General)
 
@@ -15,7 +16,7 @@
 
 ### [Query Update](./QueryUpdate)
 
-- [x] [SegTree](./QueryUpdate/SegTree.cpp)
+- [x] [SegTree](./QueryUpdate/SegTree.rs)
 - [x] [LazySegTree](./QueryUpdate/LazySegTree.cpp)
 - [x] [RMQ](./QueryUpdate/RMQ.cpp)
 - [x] [MOS Algorithm](./QueryUpdate/MosAlgo.cpp)
