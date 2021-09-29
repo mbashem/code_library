@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-#include "../util/test.hpp"
+#include "../util/message.cpp"
+#include "../util/test.cpp"
 
 template <typename T, typename F, T (*op)(T, T), F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
 struct LazysegTree

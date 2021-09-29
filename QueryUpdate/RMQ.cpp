@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
-#include "../util/test.hpp"
+#include "../util/message.cpp"
+#include "../util/test.cpp"
 
 // DRAFT RMQ
 template <typename T, T (*op)(T, T)>

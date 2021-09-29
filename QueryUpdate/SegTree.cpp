@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
-#include "../util/message.hpp"
-#include "../util/test.hpp"
+#include "../util/message.cpp"
+#include "../util/test.cpp"
 
 template <typename T, T (*op)(T, T)>
 struct SegTree
