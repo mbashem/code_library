@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#include "../util/test.hpp"
+
 // DRAFT RMQ
 template <typename T, T (*op)(T, T)>
 struct RMQ
@@ -69,10 +71,45 @@ int op(int a, int b)
 	return std::gcd(a, b);
 }
 
+int min(int a, int b)
+{
+	return std::min(a, b);
+}
+
 auto main() -> int
 {
+	const int N = 1000, M = 1e7;
 
-	RMQ<int, op> rmq(5);
+	std::vector<int> a(N);
+	for (int i = 0; i < N; i++)
+		a[i] = rng::ran(0, M);
+
+	RMQ<int, min> rmq(a);
+
+	test("Range Min RMQ ",
+			 [&]() -> bool
+			 {
+				 for (int i = 0; i < 100; i++)
+				 {
+					 int l = rng::ran(0, N - 1);
+					 int r = rng::ran(l, N - 1);
+
+					 int mnn = a[l];
+
+					 for (int j = l; j <= r; j++)
+					 {
+						 mnn = std::min(mnn, a[j]);
+					 }
+
+					 if (mnn != rmq.get(l, r))
+					 {
+						 write(l, " ", r, " ", mnn, " ", rmq.get(l, r), "\n");
+						 return false;
+					 }
+				 }
+
+				 return true;
+			 });
 
 	return 0;
 }

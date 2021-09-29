@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
+#include "../util/test.hpp"
 
 template <typename T, typename F, T (*op)(T, T), F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
 struct LazysegTree
 {
 private:
-	std::vector<T> segT;
+	std::vector<T> segt;
 	std::vector<F> lazy;
 	int n;
 	T neutral;
@@ -21,7 +22,7 @@ private:
 		{
 			T curr = lazy[si];
 			lazy[si] = lazyE;
-			segT[si] = lazyToSeg(segT[si], curr, ss, se);
+			segt[si] = lazyToSeg(segt[si], curr, ss, se);
 
 			if (ss != se)
 			{
@@ -34,7 +35,7 @@ private:
 			return neutral;
 
 		if (qs <= ss && qe >= se)
-			return segT[si];
+			return segt[si];
 
 		int mid = getMid(ss, se);
 
@@ -49,7 +50,7 @@ private:
 		{
 			F curr = lazy[si];
 			lazy[si] = lazyE;
-			segT[si] = lazyToSeg(segT[si], curr, ss, se);
+			segt[si] = lazyToSeg(segt[si], curr, ss, se);
 			if (ss != se)
 			{
 				lazy[left(si)] = lazyToLazy(lazy[left(si)], curr);
@@ -64,7 +65,7 @@ private:
 		{
 			//	**** //
 
-			segT[si] = lazyToSeg(segT[si], val, ss, se);
+			segt[si] = lazyToSeg(segt[si], val, ss, se);
 
 			if (ss != se)
 			{
@@ -79,7 +80,7 @@ private:
 		update(mid + 1, se, si * 2 + 1, qs, qe, val);
 		update(ss, mid, left(si), qs, qe, val);
 
-		segT[si] = op(segT[left(si)], segT[right(si)]);
+		segt[si] = op(segt[left(si)], segt[right(si)]);
 	}
 
 public:
@@ -90,7 +91,7 @@ public:
 		this->n = sz + 1;
 		this->neutral = _neutral;
 		this->lazyE = _lazyE;
-		segT.resize(n * 4 + 5, ini);
+		segt.resize(n * 4 + 5, ini);
 		lazy.resize(n * 4 + 5, _lazyE);
 	}
 
@@ -135,34 +136,50 @@ int lazyToLazy(int lazyV, int v)
 int main()
 {
 
-	LazysegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 1, 5);
+	LazysegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 0, 0);
 
-	std::string s;
-	std::cin >> s;
+	const int N = 105, M = 1e3;
 
-	std::vector<int> a(s.size(), 0);
-	for (int i = 0; i < (int)s.size(); i++)
-		if (s[i] != '0')
-			a[i] = 1;
-	tree.init(a);
-	int q;
-	std::cin >> q;
-	while (q--)
+	std::vector<int> a(N, 0);
+	for (int i = 0; i < N; i++)
 	{
-		char c;
-		std::cin >> c;
-		int i, j;
-		if (c == 'I')
-		{
-			std::cin >> i >> j, i--, j--;
-			tree.set(i, j, 1);
-		}
-		else
-		{
-			std::cin >> i, i--;
-			std::cout << (tree.get(i, i) % 2) << std::endl;
-		}
+		a[i] = rng::ran(0, M);
 	}
+
+	tree.init(a);
+
+	test("Range Sum",
+			 [&]() -> bool
+			 {
+				 for (int i = 0; i < 100; i++)
+				 {
+					 int l = rng::ran(0, N - 1);
+					 int r = rng::ran(l, N - 1);
+
+					 int sum = 0;
+
+					 for (int j = l; j <= r; j++)
+					 {
+						 sum += a[j];
+					 }
+
+					 if (sum != tree.get(l, r))
+					 {
+						 write(l, " ", r, " ", sum, " ", tree.get(l, r), "\n");
+						 return false;
+					 }
+
+					 int val = rng::ran(-M, M);
+					 tree.set(l, r, val);
+
+					 for (int j = l; j <= r; j++)
+					 {
+						 a[j] += val;
+					 }
+				 }
+
+				 return true;
+			 });
 
 	return 0;
 }

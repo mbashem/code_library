@@ -1,10 +1,12 @@
 #include <bits/stdc++.h>
+#include "../util/message.hpp"
+#include "../util/test.hpp"
 
 template <typename T, T (*op)(T, T)>
 struct SegTree
 {
 private:
-	std::vector<T> segt, a;
+	std::vector<T> segt;
 	int n;
 	T e;
 
@@ -25,20 +27,20 @@ private:
 		return op(query(ss, mid, qs, qe, left(si)), query(mid + 1, se, qs, qe, right(si)));
 	}
 
-	void update(int ss, int se, int key, int si)
+	void update(int ss, int se, int key, int si, T val)
 	{
 		if (ss == se)
 		{
-			segt[si] = a[ss];
+			segt[si] = val;
 			return;
 		}
 
 		int mid = getMid(ss, se);
 
 		if (key > mid)
-			update(mid + 1, se, key, right(si));
+			update(mid + 1, se, key, right(si), val);
 		else
-			update(ss, mid, key, left(si));
+			update(ss, mid, key, left(si), val);
 
 		segt[si] = op(segt[left(si)], segt[right(si)]);
 	}
@@ -50,7 +52,6 @@ public:
 	{
 		this->e = _e;
 		this->n = sz + 1;
-		a.resize(n + 5, _e);
 		segt.resize(n * 4 + 5, _e);
 	}
 
@@ -73,15 +74,9 @@ public:
 
 	void set(int key, T val)
 	{
-		a[key] = val;
-		update(0, n - 1, key, 1);
+		update(0, n - 1, key, 1, val);
 	}
 };
-
-int op(int a, int b)
-{
-	return std::min(a, b);
-}
 
 /*
 	1.Class Version of Segment Tree
@@ -126,22 +121,51 @@ int op(int a, int b)
 	@Function version used before
 */
 
+int op(int a, int b)
+{
+	return std::min(a, b);
+}
+
 int main()
 {
 	// After filling array
-	std::vector<int> b = {4, 5, 6};
+	const int N = 110, M = 1e7;
 
-	SegTree<int, op> sg;
+	std::vector<int> a(N);
 
-	SegTree<int, op> minTree(1e5, INT_MAX);
-	minTree.init(b);
+	for (int i = 0; i < N; i++)
+		a[i] = rng::ran(1, M);
 
-	std::cout << minTree.get(0, b.size() - 1) << std::endl;
+	SegTree<int, op> minTree(a, INT_MAX);
 
-	minTree.set(2, 3);
-	std::cout << minTree.get(0, b.size() - 1) << " " << b[2] << std::endl;
-	sg = minTree;
-	std::cout << sg.get(0, b.size() - 1) << " " << b[2] << std::endl;
+	test("Range Min",
+			 [&]() -> bool
+			 {
+				 for (int i = 0; i < 100; i++)
+				 {
+					 int l = rng::ran(0, N - 1);
+					 int r = rng::ran(l, N - 1);
+
+					 int mnn = a[l];
+
+					 for (int j = l; j <= r; j++)
+					 {
+						 mnn = std::min(mnn, a[j]);
+					 }
+
+					 if (mnn != minTree.get(l, r))
+					 {
+						 write(l, " ", r, " ", mnn, " ", minTree.get(l, r), "\n");
+						 return false;
+					 }
+
+					 int v = rng::ran(1, M);
+					 a[l] = v;
+					 minTree.set(l, v);
+				 }
+
+				 return true;
+			 });
 
 	return 0;
 }
