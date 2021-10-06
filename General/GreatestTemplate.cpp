@@ -77,6 +77,26 @@ pair<T, F> operator/(pair<T, F> a, pair<T, F> b)
 	return {a.first / b.first, a.second / b.second};
 }
 
+/* 
+Experimental
+
+template <typename T>
+void fillv(T &x, T &v)
+{
+	x = v;
+}
+
+template <typename T, typename F>
+void fillv(vector<T> &v, F &val)
+{
+	for (auto &x : v)
+	{
+		fillV(x, val);
+	}
+}
+
+*/
+
 void runCase(int tc)
 {
 }
