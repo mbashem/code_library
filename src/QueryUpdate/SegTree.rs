@@ -1,3 +1,5 @@
+#[allow(dead_code)]
+
 pub struct SegTree<T, Op> {
 	segt: Vec<T>,
 	n: usize,
@@ -10,59 +12,48 @@ where
 	T: Copy,
 	Op: Fn(T, T) -> T,
 {
-	
-	fn left(si: usize) -> usize {
+	fn left(&self, si: usize) -> usize {
 		return si * 2;
 	}
-	fn right(si: usize) -> usize {
+	fn right(&self, si: usize) -> usize {
 		return si * 2 + 1;
 	}
-	fn getMid(ss: usize, se: usize) -> usize {
+	fn get_mid(&self, ss: usize, se: usize) -> usize {
 		return ss + (se - ss) / 2;
 	}
-	
-	
-	fn query(&self,ss: usize, se: usize, qs: usize, qe: usize, si: usize) -> T
-	{
+
+	fn query(&self, ss: usize, se: usize, qs: usize, qe: usize, si: usize) -> T {
 		if se < qs || qe < ss {
 			self.e
-		}
-		else 
-		if qs <= ss && qe >= se {
+		} else if qs <= ss && qe >= se {
 			self.segt[si]
-		}
-		else {
-			let mid = self.getMid(ss, se);
-			
-			return op(query(ss, mid, qs, qe, left(si)), query(mid + 1, se, qs, qe, right(si)));
+		} else {
+			let mid = self.get_mid(ss, se);
+
+			(self.op)(
+				self.query(ss, mid, qs, qe, self.left(si)),
+				self.query(mid + 1, se, qs, qe, self.right(si)),
+			)
 		}
 	}
-	
-	void update(int ss, int se, int key, int si)
-	{
-		if (ss == se)
-		{
-			segt[si] = a[ss];
+
+	fn update(&mut self, ss: usize, se: usize, key: usize, si: usize, val: T) {
+		if ss == se {
+			self.segt[si] = val;
 			return;
 		}
-		
-		int mid = getMid(ss, se);
-		
-		if (key > mid)
-		update(mid + 1, se, key, right(si));
-		else
-		update(ss, mid, key, left(si));
-		
-		segt[si] = op(segt[left(si)], segt[right(si)]);
+		let mid = self.get_mid(ss, se);
+		if key > mid {
+			self.update(mid + 1, se, key, self.right(si), val);
+		} else {
+			self.update(ss, mid, key, self.left(si), val);
+		}
+
+		self.segt[si] = (self.op)(self.segt[self.left(si)], self.segt[self.right(si)]);
 	}
-	
+
 	pub fn new(arr: &Vec<T>, op: Op, init: T) -> SegTree<T, Op> {
-		let curr = SegTree {
-			seg: vec![init; arr.len()],
-			n: arr.len(),
-			op,
-			init,
-		};
+		let mut curr = SegTree::new_len(arr.len(), op, init);
 
 		for i in 0..arr.len() {
 			curr.set(i, arr[i]);
@@ -70,15 +61,22 @@ where
 
 		return curr;
 	}
-	T get(int qs, int qe)
-	{
-		return query(0, n - 1, qs, qe, 1);
+
+	pub fn new_len(n: usize, op: Op, init: T) -> SegTree<T, Op> {
+		SegTree {
+			segt: vec![init; 4 * n + 5],
+			n: n,
+			op: op,
+			e: init,
+		}
 	}
-	
-	void set(int key, T val)
-	{
-		a[key] = val;
-		update(0, n - 1, key, 1);
+
+	fn get(&self, qs: usize, qe: usize) -> T {
+		self.query(0, self.n - 1, qs, qe, 1)
+	}
+
+	fn set(&mut self, key: usize, val: T) {
+		self.update(0, self.n - 1, key, 1, val);
 	}
 }
 
@@ -99,15 +97,15 @@ mod test {
 			})
 			.collect::<Vec<_>>();
 
-		let mut seg = SegTree::new(n, |a, b| cmp::min(a, b), INF);
+		let mut seg = SegTree::new_len(n, |a, b| cmp::min(a, b), INF);
 		for i in 0..n {
 			let mut minimum = INF;
 			for j in 0..(i + 1) {
 				minimum = cmp::min(minimum, arr[j]);
 			}
-			seg.update(i, arr[i]);
-			assert_eq!(seg.query(0..n), minimum);
-			assert_eq!(seg.query(0..(i + 1)), minimum);
+			seg.set(i, arr[i]);
+			assert_eq!(seg.get(0, n), minimum);
+			assert_eq!(seg.get(0, i + 1), minimum);
 		}
 	}
 
@@ -116,19 +114,19 @@ mod test {
 		let n = 1000;
 
 		let mut arr = vec![INF; n];
-		let mut seg = SegTree::new(n, |a, b| cmp::min(a, b), || INF);
+		let mut seg = SegTree::new_len(n, |a, b| cmp::min(a, b), INF);
 
 		for _ in 0..n {
 			let value = rand::thread_rng().gen::<i64>();
-			let k = rand::thread_rng().gen_range(0, n);
-			seg.update(k, value);
+			let k = rand::thread_rng().gen_range(0..n);
+			seg.set(k, value);
 
 			arr[k] = value;
 			let mut minimum = INF;
 			for i in 0..n {
 				minimum = cmp::min(minimum, arr[i]);
 			}
-			assert_eq!(seg.query(0..n), minimum);
+			assert_eq!(seg.get(0, n), minimum);
 		}
 	}
 }
