@@ -23,13 +23,13 @@ void dfs(int s, int p)
 {
 	sz[s] = 1;
 	dist[s] = 0;
-	for (int next : g[s])
+	for (int nxt : g[s])
 	{
-		if (next == p)
+		if (nxt == p)
 			continue;
-		dfs(next, s);
-		sz[s] += sz[next];
-		dist[s] += (dist[next] + sz[next]);
+		dfs(nxt, s);
+		sz[s] += sz[nxt];
+		dist[s] += (dist[nxt] + sz[nxt]);
 	}
 }
 
@@ -43,11 +43,11 @@ void dfs1(int s, int p)
 
 		sum[s] = sum[p] - myContrib + sz[1] - sz[s] + dist[s];
 	}
-	for (int next : g[s])
+	for (int nxt : g[s])
 	{
-		if (next == p)
+		if (nxt == p)
 			continue;
-		dfs1(next, s);
+		dfs1(nxt, s);
 	}
 }
 
