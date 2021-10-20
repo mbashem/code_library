@@ -33,4 +33,5 @@
 ### [Concepts](./Concepts)
 #### [Graph](./Graph)
 - [x] [Tree Rooting](./Concepts/Graph/treerooting.cpp)
+- [x] [Edge Removeal of fully Connected/Complete Graph](./Concepts/Graph/edgeRemoveCC.cpp)
 

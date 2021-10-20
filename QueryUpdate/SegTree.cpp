@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
-#include "../util/message.cpp"
-#include "../util/test.cpp"
+
+#include "gtest/gtest.h"
 
 template <typename T, T (*op)(T, T)>
 struct SegTree
@@ -138,34 +138,26 @@ int main()
 
 	SegTree<int, op> minTree(a, INT_MAX);
 
-	test("Range Min",
-			 [&]() -> bool
-			 {
-				 for (int i = 0; i < 100; i++)
-				 {
-					 int l = rng::ran(0, N - 1);
-					 int r = rng::ran(l, N - 1);
+	TEST("Range Min", )
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			int l = rng::ran(0, N - 1);
+			int r = rng::ran(l, N - 1);
 
-					 int mnn = a[l];
+			int mnn = a[l];
 
-					 for (int j = l; j <= r; j++)
-					 {
-						 mnn = std::min(mnn, a[j]);
-					 }
+			for (int j = l; j <= r; j++)
+			{
+				mnn = std::min(mnn, a[j]);
+			}
 
-					 if (mnn != minTree.get(l, r))
-					 {
-						 write(l, " ", r, " ", mnn, " ", minTree.get(l, r), "\n");
-						 return false;
-					 }
+			EXPECT_EQ(mnn, minTree.get(l, r));
 
-					 int v = rng::ran(1, M);
-					 a[l] = v;
-					 minTree.set(l, v);
-				 }
-
-				 return true;
-			 });
-
+			int v = rng::ran(1, M);
+			a[l] = v;
+			minTree.set(l, v);
+		}
+	}
 	return 0;
 }
