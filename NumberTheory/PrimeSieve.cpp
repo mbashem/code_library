@@ -63,10 +63,10 @@ public:
 		return a;
 	}
 
-	vector<ll> segementedSieve(ll l, ll r)
+	vector<ll> segemented_sieve(ll l, ll r)
 	{
-		vector<ll> segPrimes;
-		vector<bool> currentPrimes(r - l + 1, true);
+		vector<ll> seg_primes;
+		vector<bool> current_primes(r - l + 1, true);
 		for (ll p : primes)
 		{
 			ll to = (l / p) * p;
@@ -76,7 +76,7 @@ public:
 				to += p;
 			for (ll i = to; i <= r; i += p)
 			{
-				currentPrimes[i - l] = false;
+				current_primes[i - l] = false;
 			}
 		}
 
@@ -84,13 +84,13 @@ public:
 		{
 			if (i < 2)
 				continue;
-			if (currentPrimes[i - l])
+			if (current_primes[i - l])
 			{
 
-				segPrimes.push_back(i);
+				seg_primes.push_back(i);
 			}
 		}
-		return segPrimes;
+		return seg_primes;
 	}
 };
 

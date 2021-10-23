@@ -38,10 +38,10 @@ void dfs1(int s, int p)
 
 	if (p != 0)
 	{
-		ll mySize = sz[s];
-		ll myContrib = (dist[s] + sz[s]);
+		ll my_size = sz[s];
+		ll my_contrib = (dist[s] + sz[s]);
 
-		sum[s] = sum[p] - myContrib + sz[1] - sz[s] + dist[s];
+		sum[s] = sum[p] - my_contrib + sz[1] - sz[s] + dist[s];
 	}
 	for (int nxt : g[s])
 	{

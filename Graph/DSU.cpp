@@ -40,7 +40,7 @@ public:
 	}
 
 	// Return Size
-	int getSize(int x) { return csz[get(x)]; }
+	int get_comp_size(int component) { return csz[get(component)]; }
 	// Return if Union created Succesffully or false if they are already in Union
 	bool merge(int x, int y)
 	{

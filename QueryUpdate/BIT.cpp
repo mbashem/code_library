@@ -35,7 +35,7 @@ public:
 		}
 	}
 
-	long long prefixQuery(int ind)
+	long long prefix_query(int ind)
 	{
 		int res = 0;
 		for (; ind > 0; ind -= (ind & -ind))
@@ -45,9 +45,9 @@ public:
 		return res;
 	}
 
-	long long rangeQuery(int from, int to)
+	long long range_query(int from, int to)
 	{
-		return prefixQuery(to) - prefixQuery(from - 1);
+		return prefix_query(to) - prefix_query(from - 1);
 	}
 
 	void add(int ind, long long add)

@@ -48,7 +48,7 @@ public:
 		}
 	}
 
-	void clearV(int a)
+	void clear_v(int a)
 	{
 		g[a].clear();
 	}
@@ -74,7 +74,7 @@ public:
 		return up[a][0];
 	}
 
-	int getLCA(int a, int b)
+	int get_lca(int a, int b)
 	{
 		if (depth[a] < depth[b])
 			std::swap(a, b);
@@ -99,9 +99,9 @@ public:
 		return up[a][0];
 	}
 
-	int getDist(int a, int b)
+	int get_dist(int a, int b)
 	{
-		return depth[a] + depth[b] - 2 * depth[getLCA(a, b)];
+		return depth[a] + depth[b] - 2 * depth[get_lca(a, b)];
 	}
 };
 

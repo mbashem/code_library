@@ -28,7 +28,7 @@ struct Query
 	}
 };
 
-vector<int> mosAlgorithm(vector<Query> &queries, vector<int> &a)
+vector<int> mos_alogorithm(vector<Query> &queries, vector<int> &a)
 {
 	vector<int> answers(queries.size());
 	sort(queries.begin(), queries.end());
@@ -106,7 +106,7 @@ int main()
 		qr[i].l = l, qr[i].r = r, qr[i].i = i;
 	}
 
-	vector<int> res = mosAlgorithm(qr, a);
+	vector<int> res = mos_alogorithm(qr, a);
 
 	for (int i = 0; i < q; i++)
 		cout << res[i] << endl;

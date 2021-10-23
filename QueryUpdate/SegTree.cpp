@@ -12,7 +12,7 @@ private:
 
 	int left(int si) { return si * 2; }
 	int right(int si) { return si * 2 + 1; }
-	int getMid(int ss, int se) { return (ss + (se - ss) / 2); }
+	int midpoint(int ss, int se) { return (ss + (se - ss) / 2); }
 
 	T query(int ss, int se, int qs, int qe, int si)
 	{
@@ -22,7 +22,7 @@ private:
 		if (qs <= ss && qe >= se)
 			return segt[si];
 
-		int mid = getMid(ss, se);
+		int mid = midpoint(ss, se);
 
 		return op(query(ss, mid, qs, qe, left(si)), query(mid + 1, se, qs, qe, right(si)));
 	}
@@ -35,7 +35,7 @@ private:
 			return;
 		}
 
-		int mid = getMid(ss, se);
+		int mid = midpoint(ss, se);
 
 		if (key > mid)
 			update(mid + 1, se, key, right(si), val);

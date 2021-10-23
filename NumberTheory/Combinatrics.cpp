@@ -18,7 +18,7 @@ const int N = 1e6, MOD = 998244353;
 
 struct Combinatrics
 {
-	vector<ll> fact, factInv, inv;
+	vector<ll> fact, fact_inv, inv;
 	ll mod, nl;
 
 	Combinatrics() {}
@@ -27,7 +27,7 @@ struct Combinatrics
 	{
 		this->nl = n;
 		this->mod = mod;
-		fact.resize(n + 1, 1), factInv.resize(n + 1, 1), inv.resize(n + 1, 1);
+		fact.resize(n + 1, 1), fact_inv.resize(n + 1, 1), inv.resize(n + 1, 1);
 		init();
 	}
 
@@ -44,27 +44,27 @@ struct Combinatrics
 		for (int i = 2; i <= nl; i++)
 			inv[i] = inv[mod % i] * (mod - mod / i) % mod;
 
-		factInv[0] = factInv[1] = 1;
+		fact_inv[0] = fact_inv[1] = 1;
 
 		for (int i = 2; i <= nl; i++)
-			factInv[i] = (inv[i] * factInv[i - 1]) % mod;
+			fact_inv[i] = (inv[i] * fact_inv[i - 1]) % mod;
 	}
 
 	ll ncr(ll n, ll r)
 	{
 		if (n > nl)
 			return ncr(n, r, mod);
-		return (((fact[n] * 1LL * factInv[r]) % mod) * 1LL * factInv[n - r]) % mod;
+		return (((fact[n] * 1LL * fact_inv[r]) % mod) * 1LL * fact_inv[n - r]) % mod;
 	}
 
 	ll npr(ll n, ll r)
 	{
 		if (n > nl)
 			return npr(n, r, mod);
-		return (fact[n] * 1LL * factInv[n - r]) % mod;
+		return (fact[n] * 1LL * fact_inv[n - r]) % mod;
 	}
 
-	ll bigMod(ll a, ll p, ll m = -1)
+	ll big_mod(ll a, ll p, ll m = -1)
 	{
 		m = (m == -1 ? mod : m);
 		ll res = 1 % m, x = a % m;
@@ -78,9 +78,9 @@ struct Combinatrics
 		return res;
 	}
 
-	ll modInv(ll a, ll p)
+	ll mod_inv(ll a, ll p)
 	{
-		return bigMod(a, p - 2, p);
+		return big_mod(a, p - 2, p);
 	}
 
 	ll ncr(ll n, ll r, ll p)
@@ -89,7 +89,7 @@ struct Combinatrics
 			return 0;
 		if (r == 0)
 			return 1;
-		return (((fact[n] * modInv(fact[r], p)) % p) * modInv(fact[n - r], p)) % p;
+		return (((fact[n] * mod_inv(fact[r], p)) % p) * mod_inv(fact[n - r], p)) % p;
 	}
 
 	ll npr(ll n, ll r, ll p)
@@ -98,7 +98,7 @@ struct Combinatrics
 			return 0;
 		if (r == 0)
 			return 1;
-		return (fact[n] * modInv(fact[n - r], p)) % p;
+		return (fact[n] * mod_inv(fact[n - r], p)) % p;
 	}
 };
 

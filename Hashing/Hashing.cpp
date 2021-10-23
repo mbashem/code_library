@@ -34,7 +34,7 @@ void generateRandomBM()
 struct Hash
 {
 public:
-	vector<int> basePow, fHash, rHash;
+	vector<int> base_pow, f_hash, r_hash;
 	ll base, mod;
 
 	Hash() {}
@@ -43,11 +43,11 @@ public:
 	{
 		this->base = base;
 		this->mod = mod;
-		basePow.resize(mxSize + 2, 1), fHash.resize(mxSize + 2, 0), rHash.resize(mxSize + 2, 0);
+		base_pow.resize(mxSize + 2, 1), f_hash.resize(mxSize + 2, 0), r_hash.resize(mxSize + 2, 0);
 
 		for (int i = 1; i <= mxSize; i++)
 		{
-			basePow[i] = basePow[i - 1] * base % mod;
+			base_pow[i] = base_pow[i - 1] * base % mod;
 		}
 	}
 
@@ -57,24 +57,24 @@ public:
 
 		for (int i = 1; i <= n; i++)
 		{
-			fHash[i] = (fHash[i - 1] * base + int(s[i - 1])) % mod;
+			f_hash[i] = (f_hash[i - 1] * base + int(s[i - 1])) % mod;
 		}
 
 		for (int i = n; i >= 1; i--)
 		{
-			rHash[i] = (rHash[i + 1] * base + int(s[i - 1])) % mod;
+			r_hash[i] = (r_hash[i + 1] * base + int(s[i - 1])) % mod;
 		}
 	}
 
-	int forwardHash(int l, int r)
+	int forward_hash(int l, int r)
 	{
-		int h = fHash[r + 1] - (1LL * basePow[r - l + 1] * fHash[l]) % mod;
+		int h = f_hash[r + 1] - (1LL * base_pow[r - l + 1] * f_hash[l]) % mod;
 		return h < 0 ? mod + h : h;
 	}
 
-	int reverseHash(int l, int r)
+	int reverse_hash(int l, int r)
 	{
-		int h = rHash[l + 1] - (1LL * basePow[r - l + 1] * rHash[r + 2]) % mod;
+		int h = r_hash[l + 1] - (1LL * base_pow[r - l + 1] * r_hash[r + 2]) % mod;
 		return h < 0 ? mod + h : h;
 	}
 };
@@ -85,10 +85,10 @@ public:
 	Hash sh1, sh2;
 	DHash() {}
 
-	DHash(int mxSize)
+	DHash(int mx_size)
 	{
-		sh1 = Hash(mxSize, base1, mod1);
-		sh2 = Hash(mxSize, base2, mod2);
+		sh1 = Hash(mx_size, base1, mod1);
+		sh2 = Hash(mx_size, base2, mod2);
 	}
 
 	void init(string s)
@@ -97,14 +97,14 @@ public:
 		sh2.init(s);
 	}
 
-	ll forwardHash(int l, int r)
+	ll forward_hash(int l, int r)
 	{
-		return (ll(sh1.forwardHash(l, r)) << 32) | (sh2.forwardHash(l, r));
+		return (ll(sh1.forward_hash(l, r)) << 32) | (sh2.forward_hash(l, r));
 	}
 
-	ll reverseHash(int l, int r)
+	ll reverse_hash(int l, int r)
 	{
-		return ((ll(sh1.reverseHash(l, r)) << 32) | (sh2.reverseHash(l, r)));
+		return ((ll(sh1.reverse_hash(l, r)) << 32) | (sh2.reverse_hash(l, r)));
 	}
 };
 
