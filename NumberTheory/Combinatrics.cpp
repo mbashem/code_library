@@ -52,6 +52,10 @@ struct Combinatrics
 
 	ll ncr(ll n, ll r)
 	{
+		if(n < r){
+			return 0;
+		}
+
 		if (n > nl)
 			return ncr(n, r, mod);
 		return (((fact[n] * 1LL * fact_inv[r]) % mod) * 1LL * fact_inv[n - r]) % mod;
@@ -59,6 +63,10 @@ struct Combinatrics
 
 	ll npr(ll n, ll r)
 	{
+		if(n < r){
+			return 0;
+		}
+
 		if (n > nl)
 			return npr(n, r, mod);
 		return (fact[n] * 1LL * fact_inv[n - r]) % mod;
