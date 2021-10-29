@@ -3,7 +3,7 @@
 #include "../util/test.cpp"
 
 template <typename T, typename F, T (*op)(T, T), F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
-struct LazysegTree
+struct LazySegTree
 {
 private:
 	std::vector<T> segt;
@@ -85,9 +85,9 @@ private:
 	}
 
 public:
-	LazysegTree() : n(0) {}
+	LazySegTree() : n(0) {}
 
-	LazysegTree(int sz, T ini, T _neutral, F _lazyE)
+	LazySegTree(int sz, T ini, T _neutral, F _lazyE)
 	{
 		this->n = sz + 1;
 		this->neutral = _neutral;
@@ -96,7 +96,7 @@ public:
 		lazy.resize(n * 4 + 5, _lazyE);
 	}
 
-	LazysegTree(std::vector<T> &arr, T ini, T _neutral, F _lazyE) : LazysegTree(arr.size(), ini, _neutral, _lazyE)
+	LazySegTree(std::vector<T> &arr, T ini, T _neutral, F _lazyE) : LazySegTree(arr.size(), ini, _neutral, _lazyE)
 	{
 		init(arr);
 	}
@@ -137,21 +137,20 @@ int lazyToLazy(int lazyV, int v)
 int main()
 {
 
-	LazysegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 0, 0);
-
-	const int N = 105, M = 1e3;
-
-	std::vector<int> a(N, 0);
-	for (int i = 0; i < N; i++)
-	{
-		a[i] = rng::ran(0, M);
-	}
-
-	tree.init(a);
-
 	test("Range Sum",
 			 [&]() -> bool
 			 {
+				 LazySegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 0, 0);
+
+				 const int N = 105, M = 1e3;
+
+				 std::vector<int> a(N, 0);
+				 for (int i = 0; i < N; i++)
+				 {
+					 a[i] = rng::ran(0, M);
+				 }
+
+				 tree.init(a);
 				 for (int i = 0; i < 100; i++)
 				 {
 					 int l = rng::ran(0, N - 1);
