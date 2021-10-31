@@ -2,7 +2,7 @@
 #include "../util/message.cpp"
 #include "../util/test.cpp"
 
-template <typename T, typename F, T (*op)(T, T), F (*lazyToLazy)(F, F), T (*lazyToSeg)(T, F, int, int)>
+template <typename T, typename F, T (*op)(T, T), F (*lazy_to_lazy)(F, F), T (*lazy_to_seg)(T, F, int, int)>
 struct LazySegTree
 {
 private:
@@ -23,12 +23,12 @@ private:
 		{
 			T curr = lazy[si];
 			lazy[si] = lazyE;
-			segt[si] = lazyToSeg(segt[si], curr, ss, se);
+			segt[si] = lazy_to_seg(segt[si], curr, ss, se);
 
 			if (ss != se)
 			{
-				lazy[left(si)] = lazyToLazy(lazy[left(si)], curr);
-				lazy[right(si)] = lazyToLazy(lazy[right(si)], curr);
+				lazy[left(si)] = lazy_to_lazy(lazy[left(si)], curr);
+				lazy[right(si)] = lazy_to_lazy(lazy[right(si)], curr);
 			}
 		}
 
@@ -51,11 +51,11 @@ private:
 		{
 			F curr = lazy[si];
 			lazy[si] = lazyE;
-			segt[si] = lazyToSeg(segt[si], curr, ss, se);
+			segt[si] = lazy_to_seg(segt[si], curr, ss, se);
 			if (ss != se)
 			{
-				lazy[left(si)] = lazyToLazy(lazy[left(si)], curr);
-				lazy[right(si)] = lazyToLazy(lazy[right(si)], curr);
+				lazy[left(si)] = lazy_to_lazy(lazy[left(si)], curr);
+				lazy[right(si)] = lazy_to_lazy(lazy[right(si)], curr);
 			}
 		}
 
@@ -66,12 +66,12 @@ private:
 		{
 			//	**** //
 
-			segt[si] = lazyToSeg(segt[si], val, ss, se);
+			segt[si] = lazy_to_seg(segt[si], val, ss, se);
 
 			if (ss != se)
 			{
-				lazy[left(si)] = lazyToLazy(lazy[left(si)], val);
-				lazy[right(si)] = lazyToLazy(lazy[right(si)], val);
+				lazy[left(si)] = lazy_to_lazy(lazy[left(si)], val);
+				lazy[right(si)] = lazy_to_lazy(lazy[right(si)], val);
 			}
 			return;
 		}
@@ -124,14 +124,14 @@ int op(int a, int b)
 	return a + b;
 }
 
-int lazyToSeg(int seg, int lazyV, int l, int r)
+int lazy_to_seg(int seg, int lazy_v, int l, int r)
 {
-	return seg + (lazyV * (r - l + 1));
+	return seg + (lazy_v * (r - l + 1));
 }
 
-int lazyToLazy(int lazyV, int v)
+int lazy_to_lazy(int curr_lazy, int input_lazy)
 {
-	return lazyV + v;
+	return curr_lazy + input_lazy;
 }
 
 int main()
@@ -140,7 +140,7 @@ int main()
 	test("Range Sum",
 			 [&]() -> bool
 			 {
-				 LazySegTree<int, int, op, lazyToLazy, lazyToSeg> tree(1e5, 0, 0, 0);
+				 LazySegTree<int, int, op, lazy_to_lazy, lazy_to_seg> tree(1e5, 0, 0, 0);
 
 				 const int N = 105, M = 1e3;
 
