@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 template <typename T, T (*op)(T, T)>
 struct SegTree
@@ -126,9 +126,19 @@ int op(int a, int b)
 	return std::min(a, b);
 }
 
-int main()
+// random number generator
+// shuffle(all(array),rng)
+
+namespace rng {
+using namespace std;
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+int ran(int l, int r)
 {
-	// After filling array
+	return uniform_int_distribution<int>(l, r)(rng);
+}
+}
+
+	TEST(HelloTest, BasicAssertions) {
 	const int N = 110, M = 1e7;
 
 	std::vector<int> a(N);
@@ -138,8 +148,6 @@ int main()
 
 	SegTree<int, op> minTree(a, INT_MAX);
 
-	TEST("Range Min", )
-	{
 		for (int i = 0; i < 100; i++)
 		{
 			int l = rng::ran(0, N - 1);
@@ -158,6 +166,6 @@ int main()
 			a[l] = v;
 			minTree.set(l, v);
 		}
-	}
-	return 0;
-}
+
+
+ }
