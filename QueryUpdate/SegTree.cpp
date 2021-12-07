@@ -55,12 +55,12 @@ public:
 		segt.resize(n * 4 + 5, _e);
 	}
 
-	SegTree(std::vector<T> &arr, T _e) : SegTree(arr.size(), _e)
+	SegTree(const std::vector<T> &arr, T _e) : SegTree(arr.size(), _e)
 	{
 		init(arr);
 	}
 
-	void init(std::vector<T> &arr)
+	void init(const std::vector<T> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)

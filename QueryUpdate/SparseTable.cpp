@@ -1,11 +1,8 @@
 #include <bits/stdc++.h>
 
-#include "../util/message.cpp"
-#include "../util/test.cpp"
-
 // DRAFT RMQ
 template <typename T, T (*op)(T, T)>
-struct RMQ
+struct SparseTable
 {
 private:
 	std::vector<std::vector<T>> st;
@@ -14,9 +11,9 @@ private:
 	T e;
 
 public:
-	RMQ() : n(0) {}
+	SparseTable() : n(0) {}
 
-	RMQ(int _n)
+	SparseTable(int _n)
 	{
 		this->n = _n;
 		int bit = 0;
@@ -33,7 +30,7 @@ public:
 		}
 	}
 
-	RMQ(std::vector<T> &a) : RMQ(a.size())
+	SparseTable(const std::vector<T> &a) : SparseTable(a.size())
 	{
 		init(a);
 	}
@@ -85,7 +82,7 @@ auto main() -> int
 	for (int i = 0; i < N; i++)
 		a[i] = rng::ran(0, M);
 
-	RMQ<int, min> rmq(a);
+	RMQ<int, min> SparseTable(a);
 
 	test("Range Min RMQ ",
 			 [&]() -> bool
