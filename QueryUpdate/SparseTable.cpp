@@ -35,7 +35,7 @@ public:
 		init(a);
 	}
 
-	void init(std::vector<T> &a)
+	void init(const std::vector<T> &a)
 	{
 		this->n = a.size();
 

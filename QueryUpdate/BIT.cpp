@@ -18,7 +18,7 @@ public:
 		mArray.resize(sz + 1, 0);
 	}
 
-	void build(std::vector<long long> &list)
+	void build(const std::vector<long long> &list)
 	{
 		for (int i = 1; i <= list.size(); i++)
 		{

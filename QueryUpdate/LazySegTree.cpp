@@ -96,12 +96,12 @@ public:
 		lazy.resize(n * 4 + 5, _lazyE);
 	}
 
-	LazySegTree(std::vector<T> &arr, T ini, T _neutral, F _lazyE) : LazySegTree(arr.size(), ini, _neutral, _lazyE)
+	LazySegTree(const std::vector<T> &arr, T ini, T _neutral, F _lazyE) : LazySegTree(arr.size(), ini, _neutral, _lazyE)
 	{
 		init(arr);
 	}
 
-	void init(std::vector<T> &arr)
+	void init(const std::vector<T> &arr)
 	{
 		this->n = arr.size();
 		for (int i = 0; i < n; i++)
