@@ -14,22 +14,22 @@ typedef pair<ll, ll> pll;
 #define all(x) x.begin(), x.end()
 #define endl "\n"
 
-ll Set(ll n, int p)
+ll set_bit(ll n, int bit)
 {
-	return n | (1LL << p);
+	return n | (1LL << bit);
 }
 
-ll Reset(ll n, int p)
+ll reset_bit(ll n, int bit)
 {
-	return n & ~(1LL << p);
+	return n & ~(1LL << bit);
 }
 
-bool Check(ll n, int p)
+bool get_bit(ll n, int bit)
 {
-	return (n & (1LL << p)) != 0;
+	return (n & (1LL << bit)) != 0;
 }
 
-ll bigMod(ll a, ll p, ll m)
+ll big_mod(ll a, ll p, ll m)
 {
 	ll res = 1 % m, x = a % m;
 	while (p > 0)
