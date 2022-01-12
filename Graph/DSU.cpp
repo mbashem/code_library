@@ -6,18 +6,19 @@
 	2.Function
 */
 
+// O based
 class DSU
 {
 	std::vector<int> p, csz;
 
 public:
 	DSU() {}
-	
-	// mx_size = Max Size - 1
+
+	// mx_size = Max Size 0 based
 	DSU(int mx_size)
 	{
 		//Default empty
-		p.resize(mx_size + 1, 0), csz.resize(mx_size + 1, 0);
+		p.resize(mx_size, 0), csz.resize(mx_size, 0);
 
 		init(mx_size);
 	}
@@ -25,7 +26,7 @@ public:
 	void init(int n)
 	{
 		// n = size
-		for (int i = 0; i <= n; i++)
+		for (int i = 0; i < n; i++)
 		{
 			p[i] = i, csz[i] = 1;
 		}
