@@ -12,13 +12,14 @@ class DSU
 
 public:
 	DSU() {}
-
-	DSU(int dsz) // Max size
+	
+	// mx_size = Max Size - 1
+	DSU(int mx_size)
 	{
 		//Default empty
-		p.resize(dsz + 5, 0), csz.resize(dsz + 5, 0);
+		p.resize(mx_size + 1, 0), csz.resize(mx_size + 1, 0);
 
-		init(dsz);
+		init(mx_size);
 	}
 
 	void init(int n)
