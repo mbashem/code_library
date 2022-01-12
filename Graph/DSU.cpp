@@ -14,7 +14,7 @@ class DSU
 public:
 	DSU() {}
 
-	// mx_size = Max Size 0 based
+	//0 based
 	DSU(int mx_size)
 	{
 		//Default empty
