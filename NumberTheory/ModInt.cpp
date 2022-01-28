@@ -1,166 +1,135 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-
-#define faster ios_base::sync_with_stdio(false), cin.tie(0)
-#define read freopen("in.txt", "r", stdin)
-#define write freopen("out.txt", "w", stdout)
-#define var(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
-#define mem(x, n) memset(x, n, sizeof(x))
-#define all(x) x.begin(), x.end()
-#define endl "\n"
-
-/*Copied from neals submisson :https://codeforces.com/contest/1536/submission/118611234 */
-
-template <const int &MOD>
+template <uint32_t M>
 struct ModInt
 {
-	int val;
-
-	ModInt(ll v = 0)
+	ModInt(unsigned long long v)
 	{
-		if (v < 0)
-			v = v % MOD + MOD;
-		if (v >= MOD)
-			v %= MOD;
-		val = v;
+		_v = (uint32_t)(v % M);
 	}
-
-	ModInt &operator+=(const ModInt &a)
+	//based
+	ModInt &operator+=(const ModInt &rhs)
 	{
-		val -= MOD - a.val;
-		if (val < 0)
-			val += MOD;
+		_v += rhs._v;
+		_v -= (_v >= M ? M : 0);
 		return *this;
 	}
-
-	ModInt &operator-=(const ModInt &a)
+	ModInt &operator-=(const ModInt &rhs)
 	{
-		val -= a.val;
-		if (val < 0)
-			val += MOD;
+		_v -= rhs._v;
+		*this += M;
 		return *this;
 	}
-
-	ModInt &operator*=(const ModInt &a)
+	ModInt &operator*=(const ModInt &rhs)
 	{
-		val = (uint64_t(val) * a.val) % MOD;
+		unsigned long long z = _v * 1ULL * rhs._v;
+		_v = (unsigned int)(z % M);
 		return *this;
 	}
-
-	ModInt &operator/=(const ModInt &a)
-	{
-		return *this *= a.inv();
-	}
-
+	//dependents
 	ModInt &operator++()
 	{
-
-		val = val == MOD - 1 ? 0 : val + 1;
+		*this += 1;
 		return *this;
 	}
-
 	ModInt &operator--()
 	{
-		val = val == 0 ? MOD - 1 : val - 1;
+		*this -= 1;
 		return *this;
 	}
-
 	ModInt operator++(int)
 	{
-		auto temp = *this;
+		ModInt result = *this;
 		++*this;
-		return temp;
+		return result;
 	}
-
 	ModInt operator--(int)
 	{
-		auto temp = *this;
+		ModInt result = *this;
 		--*this;
-		return temp;
+		return result;
 	}
-
-	friend ModInt operator+(const ModInt &a, const ModInt &b) { return ModInt(a) += b; }
-	friend ModInt operator-(const ModInt &a, const ModInt &b) { return ModInt(a) -= b; }
-	friend ModInt operator*(const ModInt &a, const ModInt &b) { return ModInt(a) *= b; }
-	friend ModInt operator/(const ModInt &a, const ModInt &b) { return ModInt(a) /= b; }
-
-	friend bool operator==(const ModInt &a, const ModInt &b) { return a.val == b.val; }
-	friend bool operator!=(const ModInt &a, const ModInt &b) { return a.val != b.val; }
-	friend bool operator<(const ModInt &a, const ModInt &b) { return a.val < b.val; }
-	friend bool operator>(const ModInt &a, const ModInt &b) { return a.val > b.val; }
-	friend bool operator<=(const ModInt &a, const ModInt &b) { return a.val <= b.val; }
-	friend bool operator>=(const ModInt &a, const ModInt &b) { return a.val >= b.val; }
-
-	static const int SAVE_INV = int(1e6) + 5;
-	static ModInt save_inv[SAVE_INV];
-
-	static void prepare_inv()
+	ModInt pow(long long n) const
 	{
-		for (int64_t p = 2; p * p <= MOD; p += p % 2 + 1)
-			assert(MOD % p != 0);
-
-		save_inv[0] = 0;
-		save_inv[1] = 1;
-
-		for (int i = 2; i < SAVE_INV; i++)
-			save_inv[i] = save_inv[MOD % i] * (MOD - MOD / i);
+		assert(0 <= n);
+		ModInt x = *this, r = 1;
+		while (n)
+		{
+			if (n & 1)
+				r *= x;
+			x *= x;
+			n >>= 1;
+		}
+		return r;
 	}
-
 	ModInt inv() const
 	{
-		if (save_inv[1] == 0)
-			prepare_inv();
-
-		if (val < SAVE_INV)
-			return save_inv[val];
-
-		ModInt product = 1;
-		int v = val;
-
-		while (v >= SAVE_INV)
-		{
-			product *= MOD - MOD / v;
-			v = MOD % v;
-		}
-
-		return product * save_inv[v];
+		return this->pow(M - 2);
 	}
-
-	friend ostream &operator<<(ostream &out, const ModInt &m)
+	ModInt &operator/=(const ModInt &rhs) { return *this = *this * rhs.inv(); }
+	friend ModInt operator+(const ModInt &lhs, const ModInt &rhs)
 	{
-		out << m.val;
+		return ModInt(lhs) += rhs;
+	}
+	friend ModInt operator-(const ModInt &lhs, const ModInt &rhs)
+	{
+		return ModInt(lhs) -= rhs;
+	}
+	friend ModInt operator*(const ModInt &lhs, const ModInt &rhs)
+	{
+		return ModInt(lhs) *= rhs;
+	}
+	friend ModInt operator/(const ModInt &lhs, const ModInt &rhs)
+	{
+		return ModInt(lhs) /= rhs;
+	}
+	friend bool operator==(const ModInt &lhs, const ModInt &rhs)
+	{
+		return lhs._v == rhs._v;
+	}
+	friend bool operator!=(const ModInt &lhs, const ModInt &rhs)
+	{
+		return lhs._v != rhs._v;
+	}
+	friend std::ostream &operator<<(std::ostream &out, const ModInt &m)
+	{
+		out << m._v;
 		return out;
 	}
-
-	friend istream &operator>>(istream &in, ModInt &m)
+	friend std::istream &operator>>(std::istream &in, ModInt &m)
 	{
-		in >> m.val;
+		in >> m._v;
 		return in;
 	}
+	operator unsigned int() const
+	{
+		return (unsigned int)_v;
+	}
+
+private:
+	unsigned int _v;
 };
 
-const int MOD = 1e9 + 7;
-template <const int &MOD>
-ModInt<MOD> ModInt<MOD>::save_inv[ModInt<MOD>::SAVE_INV];
-using mint = ModInt<MOD>;
+using mint = ModInt<(int)1e9 + 7>;
 
 int main()
 {
-	faster;
+	using namespace std;
+	const mint N = 5;
 
-	mint a = 50000000000000000ULL;
-	a += 6;
-	a /= 2;
-	cout << a << endl;
-	cout << ++a << endl;
-	cout << a++ << " " << a-- << endl;
-	cout << a << endl;
-	cout << --a << endl;
+	std::vector<mint> a(5, 0);
+
+	for (mint i = 0; i < N; i++)
+	{
+		std::cin >> a[i];
+	}
+
+	cout << (mint)7 - (mint)6 << endl;
+
+	for (mint i = 0; i < N; i++)
+	{
+		std::cout << a[i] << std::endl;
+	}
 
 	return 0;
 }
