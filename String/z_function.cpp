@@ -1,5 +1,10 @@
 #include<bits/stdc++.h>
 
+/* 
+	tested by ac 
+	submission: https://codeforces.com/contest/432/submission/145953901
+	problem: https://codeforces.com/contest/432/problem/D
+*/ 
 std::vector<int> z_function(const std::string &s)
 {
 	int n = (int)s.size();

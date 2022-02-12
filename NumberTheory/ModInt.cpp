@@ -8,21 +8,21 @@ struct ModInt
 		_v = (uint32_t)(v % M);
 	}
 	//based
-	ModInt &operator+=(const ModInt &rhs)
+	ModInt &operator+=(const ModInt &other)
 	{
-		_v += rhs._v;
+		_v += other._v;
 		_v -= (_v >= M ? M : 0);
 		return *this;
 	}
-	ModInt &operator-=(const ModInt &rhs)
+	ModInt &operator-=(const ModInt &other)
 	{
-		_v -= rhs._v;
+		_v -= other._v;
 		*this += M;
 		return *this;
 	}
-	ModInt &operator*=(const ModInt &rhs)
+	ModInt &operator*=(const ModInt &other)
 	{
-		unsigned long long z = _v * 1ULL * rhs._v;
+		unsigned long long z = _v * 1ULL * other._v;
 		_v = (unsigned int)(z % M);
 		return *this;
 	}
@@ -66,30 +66,30 @@ struct ModInt
 	{
 		return this->pow(M - 2);
 	}
-	ModInt &operator/=(const ModInt &rhs) { return *this = *this * rhs.inv(); }
-	friend ModInt operator+(const ModInt &lhs, const ModInt &rhs)
+	ModInt &operator/=(const ModInt &other) { return *this = *this * other.inv(); }
+	friend ModInt operator+(const ModInt &lhs, const ModInt &other)
 	{
-		return ModInt(lhs) += rhs;
+		return ModInt(lhs) += other;
 	}
-	friend ModInt operator-(const ModInt &lhs, const ModInt &rhs)
+	friend ModInt operator-(const ModInt &lhs, const ModInt &other)
 	{
-		return ModInt(lhs) -= rhs;
+		return ModInt(lhs) -= other;
 	}
-	friend ModInt operator*(const ModInt &lhs, const ModInt &rhs)
+	friend ModInt operator*(const ModInt &lhs, const ModInt &other)
 	{
-		return ModInt(lhs) *= rhs;
+		return ModInt(lhs) *= other;
 	}
-	friend ModInt operator/(const ModInt &lhs, const ModInt &rhs)
+	friend ModInt operator/(const ModInt &lhs, const ModInt &other)
 	{
-		return ModInt(lhs) /= rhs;
+		return ModInt(lhs) /= other;
 	}
-	friend bool operator==(const ModInt &lhs, const ModInt &rhs)
+	friend bool operator==(const ModInt &lhs, const ModInt &other)
 	{
-		return lhs._v == rhs._v;
+		return lhs._v == other._v;
 	}
-	friend bool operator!=(const ModInt &lhs, const ModInt &rhs)
+	friend bool operator!=(const ModInt &lhs, const ModInt &other)
 	{
-		return lhs._v != rhs._v;
+		return lhs._v != other._v;
 	}
 	friend std::ostream &operator<<(std::ostream &out, const ModInt &m)
 	{
