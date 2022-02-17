@@ -32,16 +32,10 @@ bool get_bit(T n, int bit)
 	return (n & (((T)1) << bit)) != 0;
 }
 
-ll big_mod(ll a, ll p, ll m)
-{
+ll big_mod(ll a, ll p, ll m) {
 	ll res = 1 % m, x = a % m;
 	while (p > 0)
-	{
-		if ((p & 1) > 0)
-			res = (res * x) % m;
-		x = (x * x) % m;
-		p >>= 1;
-	}
+		res = ((p & 1) ? ((res * x) % m) : res), x = ((x * x) % m), p >>= 1;
 	return res;
 }
 

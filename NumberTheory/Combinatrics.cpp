@@ -52,7 +52,8 @@ struct Combinatrics
 
 	ll ncr(ll n, ll r)
 	{
-		if(n < r){
+		if (n < r)
+		{
 			return 0;
 		}
 
@@ -63,7 +64,8 @@ struct Combinatrics
 
 	ll npr(ll n, ll r)
 	{
-		if(n < r){
+		if (n < r)
+		{
 			return 0;
 		}
 
@@ -77,12 +79,7 @@ struct Combinatrics
 		m = (m == -1 ? mod : m);
 		ll res = 1 % m, x = a % m;
 		while (p > 0)
-		{
-			if ((p & 1) > 0)
-				res = (res * x) % m;
-			x = (x * x) % m;
-			p >>= 1;
-		}
+			res = ((p & 1) ? ((res * x) % m) : res), x = ((x * x) % m), p >>= 1;
 		return res;
 	}
 

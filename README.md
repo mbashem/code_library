@@ -21,7 +21,6 @@
 - [x] [BIT](./QueryUpdate/BIT.cpp)
 
 ### [Graph](./Graph)
-- [x] [DFS](./Graph/DFS.cpp)
 - [x] [DSU](./Graph/DSU.cpp)
 - [x] [LCA](./Graph/LCA.cpp)
 
