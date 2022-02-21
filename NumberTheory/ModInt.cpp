@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-// Tested By Ac 
+// Tested By Ac
 // submission : https://atcoder.jp/contests/abc238/submissions/29247261
 // problem : https://atcoder.jp/contests/abc238/tasks/abc238_c
 
@@ -7,6 +7,7 @@ template <const int MOD>
 struct ModInt
 {
 	int val;
+	ModInt() { val = 0; }
 	ModInt(long long v) { v += (v < 0 ? MOD : 0), val = (int)(v % MOD); }
 	ModInt &operator+=(const ModInt &rhs)
 	{
@@ -15,7 +16,7 @@ struct ModInt
 	}
 	ModInt &operator-=(const ModInt &rhs)
 	{
-		val -= rhs.val, val += (val <= MOD ? MOD : 0);
+		val -= rhs.val, val += (val < 0 ? MOD : 0);
 		return *this;
 	}
 	ModInt &operator*=(const ModInt &rhs)
@@ -43,7 +44,8 @@ struct ModInt
 	operator int() const { return val; }
 };
 
-using mint = ModInt<(int)1e9 + 7>;
+const int MOD = 1e9 + 7;
+using mint = ModInt<MOD>;
 
 int main()
 {
