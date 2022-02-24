@@ -55,14 +55,14 @@ public:
 		segt.resize(n * 4 + 5, _e);
 	}
 
-	SegTree(const std::vector<T> &arr, T _e) : SegTree(arr.size(), _e)
+	SegTree(const std::vector<T> &arr, T _e) : SegTree((int)arr.size(), _e)
 	{
 		init(arr);
 	}
 
 	void init(const std::vector<T> &arr)
 	{
-		this->n = arr.size();
+		this->n = (int)arr.size();
 		for (int i = 0; i < n; i++)
 			set(i, arr[i]);
 	}
@@ -83,13 +83,13 @@ public:
 	2.Function Version of Segment Tree
 */
 
-/* 
+/*
 	@Class Version May need Debuging Never Used Before
 */
 
 // T=>Data Type , e => return if query out of range
 
-/*  range minimum 
+/*  range minimum
 
 	int op(int a, int b)
 	{
@@ -108,7 +108,7 @@ public:
 	SegTree<int, op> maxTree(1e5,INT_MIN)
 */
 
-/* range sum 
+/* range sum
 	int op(int a, int b)
 	{
 		return a + b;
@@ -117,7 +117,7 @@ public:
 	SegTree<int, op> sumTree(1e5,0)
 */
 
-/* 
+/*
 	@Function version used before
 */
 
@@ -129,16 +129,18 @@ int op(int a, int b)
 // random number generator
 // shuffle(all(array),rng)
 
-namespace rng {
-using namespace std;
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-int ran(int l, int r)
+namespace rng
 {
-	return uniform_int_distribution<int>(l, r)(rng);
-}
+	using namespace std;
+	mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+	int ran(int l, int r)
+	{
+		return uniform_int_distribution<int>(l, r)(rng);
+	}
 }
 
-	TEST(HelloTest, BasicAssertions) {
+TEST(HelloTest, BasicAssertions)
+{
 	const int N = 110, M = 1e7;
 
 	std::vector<int> a(N);
@@ -148,24 +150,22 @@ int ran(int l, int r)
 
 	SegTree<int, op> minTree(a, INT_MAX);
 
-		for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 100; i++)
+	{
+		int l = rng::ran(0, N - 1);
+		int r = rng::ran(l, N - 1);
+
+		int mnn = a[l];
+
+		for (int j = l; j <= r; j++)
 		{
-			int l = rng::ran(0, N - 1);
-			int r = rng::ran(l, N - 1);
-
-			int mnn = a[l];
-
-			for (int j = l; j <= r; j++)
-			{
-				mnn = std::min(mnn, a[j]);
-			}
-
-			EXPECT_EQ(mnn, minTree.get(l, r));
-
-			int v = rng::ran(1, M);
-			a[l] = v;
-			minTree.set(l, v);
+			mnn = std::min(mnn, a[j]);
 		}
 
+		EXPECT_EQ(mnn, minTree.get(l, r));
 
- }
+		int v = rng::ran(1, M);
+		a[l] = v;
+		minTree.set(l, v);
+	}
+}
