@@ -30,14 +30,14 @@ public:
 		}
 	}
 
-	SparseTable(const std::vector<T> &a) : SparseTable(a.size())
+	SparseTable(const std::vector<T> &a) : SparseTable((int)a.size())
 	{
 		init(a);
 	}
 
 	void init(const std::vector<T> &a)
 	{
-		this->n = a.size();
+		this->n = (int)a.size();
 
 		for (int i = 0; i < n; i++)
 		{
@@ -59,6 +59,7 @@ public:
 		return op(st[l][j], st[r - (1 << j) + 1][j]);
 	}
 };
+
 
 int op(int a, int b)
 {
@@ -82,7 +83,7 @@ auto main() -> int
 	for (int i = 0; i < N; i++)
 		a[i] = rng::ran(0, M);
 
-	RMQ<int, min> SparseTable(a);
+	SparseTable<int, min> SparseTable(a);
 
 	test("Range Min RMQ ",
 			 [&]() -> bool
