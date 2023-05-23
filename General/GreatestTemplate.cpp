@@ -1,18 +1,24 @@
+#if defined LOCAL && !defined ONLINE_JUDGE
+#include "debug.cpp"
+#else 
 #include <bits/stdc++.h>
-
 using namespace std;
+#define dbg(...) ;
+#endif
 
 typedef long long ll;
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 
-#define faster ios_base::sync_with_stdio(false), cin.tie(0)
-#define read(x) freopen(x, "r", stdin)
-#define write(x) freopen(x, "w", stdout)
-#define var(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 #define mem(x, n) memset(x, n, sizeof(x))
 #define all(x) x.begin(), x.end()
-#define endl "\n"
+#define len(x) ((int)(x).size())
+#define vec vector
+
+inline bool read(auto &...a) { return (((cin >> a) ? true : false) && ...); }
+
+inline void print(const auto &...a) { ((cout << a), ...); }
+inline void println(const auto &...a) { print(a..., '\n'); }
 
 template<typename T>
 T set_bit(T n, int bit)
@@ -74,36 +80,20 @@ pair<T, F> operator/(pair<T, F> a, pair<T, F> b)
 	return {a.first / b.first, a.second / b.second};
 }
 
-// Experimental
-
-template <typename T>
-void fillv(T &x, const T &v)
+void run_case([[maybe_unused]] const int &TC)
 {
-	x = v;
-}
-
-template <typename T, typename F>
-void fillv(vector<T> &v, const F &val)
-{
-	for (auto &x : v)
-	{
-		fillV(x, val);
-	}
-}
-
-void runCase(int tc)
-{
+	
 }
 
 int main()
 {
-	faster;
+	ios_base::sync_with_stdio(false), cin.tie(0);
 
-	int t = 1;
-	cin >> t;
+	int tt = 1;
+	read(tt);
 
-	for (int tc = 1; tc <= t; tc++)
-		runCase(tc);
+	for (int tc = 1; tc <= tt; tc++)
+		run_case(tc);
 
 	return 0;
 }
