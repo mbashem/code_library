@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
+// Tested by AC: https://atcoder.jp/contests/dp/submissions/42072837
 using namespace std;
-struct Matrix : std::vector<std::vector<ll>>
+typedef long long ll;
+struct Matrix : vector<vector<ll>>
 {
 	Matrix(size_t n) : std::vector<std::vector<ll>>(n, std::vector<ll>(n, 0)) {}
 	Matrix(std::vector<std::vector<ll>> &v) : std::vector<std::vector<ll>>(v) {}
@@ -25,8 +27,8 @@ struct Matrix : std::vector<std::vector<ll>>
 };
 Matrix big_mod(Matrix a, long long n)
 {
-	Matrix res = Matrix((ll)a.size());
-	for (int i = 0; i < len(a); i++)
+	Matrix res = Matrix(a.size());
+	for (int i = 0; i < (int)(a.size()); i++)
 		res[i][i] = 1;
 	if (n <= 0) return res;
 	while (n)
