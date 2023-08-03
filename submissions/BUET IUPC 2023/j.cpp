@@ -111,8 +111,8 @@ vec<pll> get_ps(ll n)
 
 auto calc(vec<pll> a)
 {
-	ll it = 0;
-	auto mx = (*max_element(all(a))).first;
+	sort(all(a));
+	auto mx = a.back().first;
 
 	auto b = vec(mx + 5, 0LL);
 	for (auto &x : a)
@@ -120,45 +120,19 @@ auto calc(vec<pll> a)
 		b[x.first] = x.second;
 	}
 
-	while (it < 8)
-	{
-		auto nb = vec(mx + 5, 0LL);
-		bool found = false;
-		for (auto i = mx; i >= 2; i--)
-		{
-			if (b[i] == 0) continue;
-			found = true;
-			for (auto [p, q] : get_ps(i - 1))
-			{
-				nb[p] += q % MOD;
-				// mp[p] += res;
-				nb[p] %= MOD;
-			}
-			if (b[i] > 0)
-			{
-				nb[i] += b[i] - 1;
-			}
-		}
-		if (!found) break;
-		b = nb;
-		dbg(b);
-		it++;
-	}
-	// dbg(it, a);
-	ll res = it;
+	ll res = 0;
 
 	for (auto i = mx; i >= 2; i--)
 	{
-		dbg(i, b[i], it);
 		auto f = get_ps(i - 1);
-		res = it + b[i];
+		res = b[i];
 		for (auto [x, y] : f)
 		{
 			b[x] = (b[x] + y * b[i]) % MOD;
 		}
 	}
 
-	return res;
+	return (res + (a.front().first != 2)) % MOD;
 }
 
 int pre[N * 2];
@@ -176,6 +150,7 @@ void run_case([[maybe_unused]] const int &TC)
 		read(x.second);
 
 	ll res = calc(p);
+
 
 	println(res);
 }
