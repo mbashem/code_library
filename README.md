@@ -7,29 +7,34 @@
 - [x] [IO template](./General/IO.cpp)
 
 ### [Number Theory](./NumberTheory)
+
 - [x] [Combinatrics](./NumberTheory/Combinatrics.cpp)
 - [x] [PrimeSieve](./NumberTheory/PrimeSieve.cpp)
 - [x] [PrimePhiSieve](./NumberTheory/PrimePhiSieve.cpp)
 - [x] [ModInt](./NumberTheory/ModInt.cpp)
+- [x] [Matrix Exponentiation](./NumberTheory/MatrixExponentiation.cpp)
 
-### [Query Update](./QueryUpdate)
+### [Data Structures](./DataStructures)
 
-- [x] [SegTree](./QueryUpdate/SegTree.cpp)
-- [x] [LazySegTree](./QueryUpdate/LazySegTree.cpp)
-- [x] [RMQ](./QueryUpdate/RMQ.cpp)
-- [x] [MOS Algorithm](./QueryUpdate/MosAlgo.cpp)
-- [x] [BIT](./QueryUpdate/BIT.cpp)
+- [x] [SegTree](./DataStructures/SegTree.cpp)
+- [x] [LazySegTree](./DataStructures/LazySegTree.cpp)
+- [x] [RMQ](./DataStructures/RMQ.cpp)
+- [x] [MOS Algorithm](./DataStructures/MosAlgo.cpp)
+- [x] [BIT](./DataStructures/BIT.cpp)
 
 ### [Graph](./Graph)
+
 - [x] [DSU](./Graph/DSU.cpp)
 - [x] [LCA](./Graph/LCA.cpp)
 
 ### [Hashing](./Hashing)
+
 - [x] [Hashing](./Hashing/Hashing.cpp)
 - [x] [Unordered Map](./Hashing/UnorderedMap.cpp)
 
 ### [Concepts](./Concepts)
-#### [Graph](./Graph)
-- [x] [Tree Rooting](./Concepts/Graph/treerooting.cpp)
-- [x] [Edge Removeal of fully Connected/Complete Graph](./Concepts/Graph/edgeRemoveCC.cpp)
 
+#### [Graph](./Concepts/Graph)
+
+- [x] [Tree Re-Rooting](./Concepts/Graph/treerooting.cpp)
+- [x] [Edge Removeal of fully Connected/Complete Graph](./Concepts/Graph/edgeRemoveCC.cpp)

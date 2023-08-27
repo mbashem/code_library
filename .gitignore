@@ -1,6 +1,2 @@
 *.exe
 tempCodeRunnerFile.cpp
-/bazel-bin
-/bazel-code_library
-/bazel-out
-/bazel-testlogs
