@@ -2,9 +2,10 @@
 
 ### [General](./General)
 
-- [x] [GNU Data Structures (PB Tree)](./General/GNUDS.cpp)
-- [x] [Template](./General/GreatestTemplate.cpp)
-- [x] [IO template](./General/IO.cpp)
+- [x] [GNU Data Structures (PB Tree)](./General/gnuDS.cpp)
+- [x] [Template](./General/template.cpp)
+- [x] [Debug template](./General/debug.cpp)
+- [x] [Unordered Map](./General/UnorderedMap.cpp)
 
 ### [Number Theory](./NumberTheory)
 
@@ -18,23 +19,21 @@
 
 - [x] [SegTree](./DataStructures/SegTree.cpp)
 - [x] [LazySegTree](./DataStructures/LazySegTree.cpp)
-- [x] [RMQ](./DataStructures/RMQ.cpp)
+- [x] [SparseTable](./DataStructures/SparseTable.cpp)
 - [x] [MOS Algorithm](./DataStructures/MosAlgo.cpp)
 - [x] [BIT](./DataStructures/BIT.cpp)
+- [x] [Convex Hull Trick](./DataStructures/LineContainer.cpp)
 
 ### [Graph](./Graph)
 
 - [x] [DSU](./Graph/DSU.cpp)
 - [x] [LCA](./Graph/LCA.cpp)
+- [x] [Tree Re-Rooting](./Graph/TreeReRooting.cpp)
+- [x] [Edge Removeal of fully Connected/Complete Graph](./Graph/EdgeRemoveCC.cpp)
 
-### [Hashing](./Hashing)
+### [String](./String)
 
-- [x] [Hashing](./Hashing/Hashing.cpp)
-- [x] [Unordered Map](./Hashing/UnorderedMap.cpp)
+- [x] [Hashing](./String/Hashing.cpp)
+- [x] [Unordered Map](./String/z_function.cpp)
 
-### [Concepts](./Concepts)
-
-#### [Graph](./Concepts/Graph)
-
-- [x] [Tree Re-Rooting](./Concepts/Graph/treerooting.cpp)
-- [x] [Edge Removeal of fully Connected/Complete Graph](./Concepts/Graph/edgeRemoveCC.cpp)
+### [Submissions](./submissions/)
